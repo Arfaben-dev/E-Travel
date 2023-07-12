@@ -1,0 +1,72 @@
+{% extends('components/index.html.twig') %}
+
+
+{% block content %}
+
+
+    <section class="hero_in hotels" style=" background: url(../img/photos/Annonces.png) center center no-repeat;
+">
+        <div class="wrapper">
+            <div class="container">
+                <h1 class="fadeInUp"><span></span>Mes annonces</h1>
+            </div>
+        </div>
+    </section>
+
+    <div class="card mb-5">
+
+        <div class="card-body">
+            <div class="table-responsive">
+                <table class="table table-bordered" id="dataTable" width="100%" cellspacing="1">
+                    <thead>
+                    <tr>
+
+                        <th class="text-center">Ville de depart</th>
+                        <th class="text-center">Ville d'arriver</th>
+                        <th class="text-center">Date de départ</th>
+                        <th class="text-center">Heure de depart</th>
+                        <th class="text-center">Heure d'arriver</th>
+                        <th class="text-center">Prix du Ticket</th>
+                        <th class="text-center">Places disponibles restantes</th>
+                        <th class="text-center">Operation</th>
+
+                    </tr>
+                    </thead>
+
+                    <tbody>
+
+                    {% for annonce in annonces %}
+                        <tr>
+
+                            <td class="text-center"> {{ annonce.citystart }} </td>
+                            <td class="text-center"> {{ annonce.cityend }} </td>
+                            <td class="text-center"> {{ annonce.dateStart|date('d-m-Y') }} </td>
+                            <td class="text-center"> {{ annonce.hourstart|date('h:i') }} </td>
+                            <td class="text-center"> {{ annonce.hourend|date('h:i') }} </td>
+                            <td class="text-center"> {{ annonce.prix }} €</td>
+                            <td class="text-center">
+                           {{ annonce.placeDispo - annonce.placeprise}}
+                            </td>
+                            <td class="text-center">
+                                <a href="{{ path('listclient', {'id': annonce.id}) }}" class="px-3"><i
+                                            class="ti-eye" style="font-size:18px; color:#004dda;"></i></a>
+                                <a href="{{ path('client', {'id': annonce.id}) }}" class="px-3"><i
+                                            class=" icon-download-cloud" style="font-size:18px; color:#004dda;"></i></a>
+                                <a href="{{ path('updateannonce', {'id': annonce.id}) }}" class="px-3"><i
+                                            class="ti-pencil" style="font-size:18px; color:#004dda;"></i></a>
+                                <a href="{{ path('deleteAnnonce', {'id': annonce.id}) }}" class="px-3"
+                                   onclick="return confirm('Voulez-vous vraiment supprimer cette annoncer?')"><i
+                                            class="ti-trash" style="font-size:18px; color:#fc5b62;"></i></a>
+                            </td>
+
+
+                        </tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+
+{% endblock %}

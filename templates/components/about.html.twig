@@ -1,0 +1,115 @@
+{% extends('components/index.html.twig') %}
+
+{% block content %}
+
+    <div id="page">
+
+
+        <section class="hero_in general">
+            <div class="wrapper">
+                <div class="container">
+                    <h1 class="fadeInUp"><span></span>à propos de E-travel</h1>
+                </div>
+            </div>
+        </section>
+        <!--/hero_in-->
+
+        <div class="container margin_80_55">
+            <div class="main_title_2">
+                <span><em></em></span>
+                <h2>Pourquoi nous choisir?</h2>
+                <br>
+                <p>Nous sommes une interface web qui gèrons différentes annonces de voyages locaux et internationaux,
+                    pour vous permettre un accès facile et adhésion simplifiée au site, afin de profiter de nos services
+                    gratuits pour vous faire économiser sur les billets de vos destination souhaitée.
+                </p>
+            </div>
+            <div class="row">
+                <div class="col-lg-4 col-md-6">
+                    <a class="box_feat" href="#0">
+                        <i class="pe-7s-medal"></i>
+                        <h3>Plusieurs partenaires</h3>
+                        <p></p>
+                    </a>
+                </div>
+                <div class="col-lg-4 col-md-6">
+                    <a class="box_feat" href="#0">
+                        <i class="pe-7s-help2"></i>
+                        <h3>Site totalement gratuit adapté à vos besoins</h3>
+                        <p></p>
+                    </a>
+                </div>
+                <div class="col-lg-4 col-md-6">
+                    <a class="box_feat" href="#0">
+                        <i class="pe-7s-culture"></i>
+                        <h3>Des centaines de destinations</h3>
+                        <p></p>
+                    </a>
+                </div>
+                <div class="col-lg-4 col-md-6">
+                    <a class="box_feat" href="#0">
+                        <i class="pe-7s-headphones"></i>
+                        <h3>Disponibilité de support</h3>
+                        <p></p>
+                    </a>
+                </div>
+                <div class="col-lg-4 col-md-6">
+                    <a class="box_feat" href="#0">
+                        <i class="pe-7s-credit"></i>
+                        <h3>Paiements sécurisés</h3>
+                        <p></p>
+                    </a>
+                </div>
+                <div class="col-lg-4 col-md-6">
+                    <a class="box_feat" href="#0">
+                        <i class="pe-7s-chat"></i>
+                        <h3>Contactez nos partenaires</h3>
+                        <p></p>
+                    </a>
+                </div>
+            </div>
+            <!--/row-->
+        </div>
+
+
+        <div class="container margin_80_55">
+            <div class="main_title_2">
+                <span><em></em></span>
+                <h2>Créateurs du site</h2>
+                <p></p>
+            </div>
+            <div id="carousel" class="owl-carousel owl-theme">
+                <div class="item">
+                    <a href="#0">
+                        <div class="title">
+                            <h4>Brice NYAMSI<em></em></h4>
+                        </div>
+                        <img src="img/1_carousel.jpg" alt="">
+                    </a>
+                </div>
+                <div class="item">
+                    <a href="#0">
+                        <div class="title">
+                            <h4>Mustapha AIT MESSAOUD<em></em></h4>
+                        </div>
+                        <img src="{{ asset('img/photos/Mustapha.jpg') }}" alt="">
+                    </a>
+                </div>
+                <div class="item">
+                    <a href="#0">
+                        <div class="title">
+                            <h4>Moustafa ARAFAT<em></em></h4>
+                        </div>
+                        <img src="img/3_carousel.jpg" alt="">
+                    </a>
+                </div>
+
+            </div>
+            <!--/container-->
+            <!--/main-->
+        </div>
+
+        <!--/footer-->
+    </div>
+    <!-- page -->
+{% endblock %}

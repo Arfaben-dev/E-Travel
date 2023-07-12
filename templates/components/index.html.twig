@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description"
+          content="Panagea - Premium site template for travel agencies, hotels and restaurant listing.">
+    <meta name="author" content="Ansonika">
+    <title>E-Travel</title>
+
+    <!-- Favicons-->
+    <link rel="shortcut icon" href="{{ asset('img/E-TRAVEL.png') }}" style="width: 500px; height: 500px" type="image/x-icon">
+    <link rel="apple-touch-icon" type="image/x-icon" href="{{ asset('img/E-TRAVEL.png') }}">
+    <link rel="apple-touch-icon" type="image/x-icon" sizes="72x72" href="{{ asset('img/E-TRAVEL.png') }}">
+    <link rel="apple-touch-icon" type="image/x-icon" sizes="114x114" href="{{ asset('img/E-TRAVEL.png') }}">
+    <link rel="apple-touch-icon" type="image/x-icon" sizes="144x144" href="{{ asset('img/E-TRAVEL.png') }}">
+
+    <!-- GOOGLE WEB FONT -->
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap"
+          rel="stylesheet">
+    <!-- BASE CSS -->
+    <link href="{{ asset('css/bootstrap.min.css') }}" rel="stylesheet">
+    <link href="{{ asset('css/style.css') }}" rel="stylesheet">
+    <link href="{{ asset('css/vendors.css') }}" rel="stylesheet">
+
+    <!-- YOUR CUSTOM CSS -->
+    <link href="{{ asset('css/custom.css') }}" rel="stylesheet">
+
+    <!-- Modernizr -->
+     
+     <link href="admin-section/vendor/datatables/dataTables.bootstrap4.css" rel="stylesheet">
+
+
+    <style>
+        @media (max-width: 1023px) {
+            #hero_video {
+                background: url(../img/photos/Bateau.png);
+                -webkit-background-size: cover;
+                -moz-background-size: cover;
+                -o-background-size: cover;
+                background-size: cover;
+            }
+
+            #hero_video > div {
+                background-color: black;
+                background-color: rgba(0, 0, 0, 0.5);
+            }
+
+            .header-video {
+                background: none;
+            }
+        }
+        .fav:hover
+        {
+            color: #fc5b62;
+        }
+        .fav {
+            position: absolute;
+            right: 15px;
+            top: 15px;
+            z-index: 1;
+            color: #fc5b62;
+
+            padding: 9px 10px;
+            display: inline-block;
+            line-height: 1;
+            -webkit-border-radius: 3px;
+            -moz-border-radius: 3px;
+            -ms-border-radius: 3px;
+            border-radius: 3px;
+
+        }
+    </style>
+
+    <script src="js/modernizr.js"></script>
+   
+
+      
+ 
+
+
+</head>
+
+<body>
+
+<div id="page">
+
+    <header class="header menu_fixed">
+
+{%  include('components/menus.html.twig') %}
+
+    </header>
+    <!-- /header -->
+
+    <main >
+        {% block content %}  {% endblock %}
+    </main>
+    <!-- /main -->
+
+       {% include('components/footer.html.twig') %}
+
+</div>
+<!-- page -->
+
+
+<div id="toTop"></div><!-- Back to top button -->
+{% include('components/script.html.twig') %}
+
+</body>
+</html>

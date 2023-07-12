@@ -1,0 +1,63 @@
+
+<!-- COMMON SCRIPTS -->
+<script src="js/common_scripts.js"></script>
+<script src="js/main.js"></script>
+<script src="phpmailer/validate.js"></script>
+
+<!-- SPECIFIC SCRIPTS -->
+<script src="{{ asset('js/video_header.js') }}"></script>
+<script>
+    HeaderVideo.init({
+        container: $('.header-video'),
+        header: $('.header-video--media'),
+        videoTrigger: $("#video-trigger"),
+        autoPlayVideo: true
+    });
+</script>
+    <script src="{{ asset('admin_section/vendor/jquery/jquery.min.js') }}"></script>
+    <script src="{{ asset('admin_section/vendor/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
+
+    <script src="{{ asset('admin_section/vendor/datatables/jquery.dataTables.js') }}"></script>
+    <script src="{{ asset('admin_section/vendor/datatables/dataTables.bootstrap4.js') }}"></script>
+    <script src="{{ asset('admin_section/js/admin.js') }}"></script>
+    <script src="{{ asset('admin_section/js/admin-datatables.js') }}"></script>
+
+
+
+<script src="https://unpkg.com/axios@1.1.2/dist/axios.min.js"></script>
+<script>
+    function onClickBtnLike(event) {
+        event.preventDefault();
+        const url = this.href;
+        const spancount = this.querySelector('span.js-likes');
+        const icone = this.querySelector('i');
+
+        axios.get(url).then(function (response) {
+            const likes = response.data.likes;
+
+            spancount.textContent = likes;
+
+            if(icone.classList.contains('icon-bookmark')) {
+                icone.classList.replace('icon-bookmark', 'icon-bookmark-empty');
+            } else {
+                icone.classList.replace('icon-bookmark-empty', 'icon-bookmark');
+            }
+
+        })
+    }
+
+    document.querySelectorAll('a.like').forEach(function (link) {
+        link.addEventListener('click', onClickBtnLike);
+    })
+
+
+
+</script>
+
+
+
+
+
+
+
+

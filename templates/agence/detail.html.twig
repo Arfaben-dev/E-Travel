@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description"
+          content="Panagea - Premium site template for travel agencies, hotels and restaurant listing.">
+    <meta name="author" content="Ansonika">
+    <title>E-Travel</title>
+
+    <!-- Favicons-->
+    <link rel="shortcut icon" href="{{ asset('img/E-TRAVEL.png') }}" style="width: 500px; height: 500px"
+          type="image/x-icon">
+    <link rel="apple-touch-icon" type="image/x-icon" href="{{ asset('img/E-TRAVEL.png') }}">
+    <link rel="apple-touch-icon" type="image/x-icon" sizes="72x72" href="{{ asset('img/E-TRAVEL.png') }}">
+    <link rel="apple-touch-icon" type="image/x-icon" sizes="114x114" href="{{ asset('img/E-TRAVEL.png') }}">
+    <link rel="apple-touch-icon" type="image/x-icon" sizes="144x144" href="{{ asset('img/E-TRAVEL.png') }}">
+
+    {{ encore_entry_link_tags('app') }}
+    {{ encore_entry_script_tags('app') | replace({'src=': 'defer src='}) | raw }}
+
+    <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css"
+          integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p" crossorigin="anonymous"/>
+    <!-- GOOGLE WEB FONT -->
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap"
+          rel="stylesheet">
+
+    <!-- BASE CSS -->
+    <link href="{{ asset('css/bootstrap.min.css') }}" rel="stylesheet">
+    <link href="{{ asset('css/style.css') }}" rel="stylesheet">
+    <link href="{{ asset('css/vendors.css') }}" rel="stylesheet">
+    <link href="{{ asset('css/toastr/toastr.min.css') }}" rel="stylesheet">
+
+    <!-- YOUR CUSTOM CSS -->
+    <link href="{{ asset('css/custom.css') }}" rel="stylesheet">
+    <style>
+        .icon {
+            position: relative;
+            display: inline-block;
+            cursor: pointer;
+            margin-left: 98%;
+        }
+
+        .icon-menu {
+            display: none;
+            position: absolute;
+            top: 100%;
+            left: 10px;
+            background-color: #f1f1f1;
+            min-width: 120px;
+            padding: 0px;
+            border-radius: 4px;
+        }
+
+        .icon:hover .icon-menu {
+            display: block;
+            right: 15px;
+
+        }
+
+        .icon-menu-item {
+            display: block;
+            padding: 0px 0;
+            cursor: pointer;
+        }
+    </style>
+
+
+</head>
+
+<body class="datepicker_mobile_full"><!-- Remove this class to disable datepicker full on mobile -->
+
+<div id="page" class="theia-exception">
+
+    <header class="header menu_fixed">
+        {% include('components/menus.html.twig') %}
+
+    </header>
+    <!-- /header -->
+
+    <main>
+        <section class="hero_in hotels" style=" background: url(../img/photos/Annonces.png) center center no-repeat;
+;">
+            <div class="wrapper">
+                <div class="container">
+                    <h1 class="fadeInUp"><span></span>Detail Paternaire</h1>
+                </div>
+
+            </div>
+        </section>
+        <!--/hero_in-->
+
+        <div class="bg_color_1">
+            <nav class="secondary_nav sticky_horizontal">
+                <div class="container">
+                    <ul class="clearfix">
+                        <li><a href="#description" class="active">Description</a></li>
+
+                    </ul>
+                </div>
+            </nav>
+            <div class="container margin_60_35">
+                <div class="row">
+                    <div class="col-lg-8">
+                        <section id="description">
+                            <h2>Description</h2>
+                            <p>{{ user.description }}</p>
+                            <hr>
+
+                            <h3>Images</h3>
+                            <div class="pictures_grid magnific-gallery clearfix">
+
+                                <figure>
+                                    <a href="{{ asset('upload/photo/'~user.photo) }}" data-effect="mfp-zoom-in"><img
+                                                src="{{ asset('upload/photo/'~user.photo) }}"></a></figure>
+
+                            </div>
+                            <!-- /pictures -->
+
+                            <hr>
+                            <h3>Coordonnée du paternaire</h3>
+                            <br>
+                            <p>Nom : <strong> {{ user.name }}</strong></p>
+                            <p>adresse: <strong>{{ user.adresse }} , {{ user.postal }} {{ user.ville }}</strong></p>
+                            <p>Email: <strong>{{ user.email }}</strong></p>
+                            <br>
+                            <div class="pictures_grid magnific-gallery clearfix">
+
+
+                            </div>
+                            <!-- End Map -->
+                        </section>
+                        <!-- /section -->
+
+
+
+
+                    </div>
+                    <!-- /col -->
+
+                </div>
+                <!-- /row -->
+            </div>
+            <!-- /container -->
+        </div>
+        <!-- /bg_color_1 -->
+    </main>
+    <!--/main-->
+
+    {% include('components/footer.html.twig') %} <!--/footer-->
+</div>
+<!-- page -->
+
+
+<div id="toTop"></div><!-- Back to top button -->
+
+<!-- COMMON SCRIPTS -->
+<script src="{{ asset('js/common_scripts.js') }}"></script>
+<script src="{{ asset('js/main.js') }}"></script>
+<script src="{{ asset('phpmailer/validate.js') }}"></script>
+
+
+</body>
+</html>

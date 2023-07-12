@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description"
+          content="Panagea - Premium site template for travel agencies, hotels and restaurant listing.">
+    <meta name="author" content="Ansonika">
+    <title>E-Travel</title>
+
+    <!-- Favicons-->
+    <link rel="shortcut icon" href="{{ asset('img/E-TRAVEL.png') }}" style="width: 500px; height: 500px"
+          type="image/x-icon">
+    <link rel="apple-touch-icon" type="image/x-icon" href="{{ asset('img/E-TRAVEL.png') }}">
+    <link rel="apple-touch-icon" type="image/x-icon" sizes="72x72" href="{{ asset('img/E-TRAVEL.png') }}">
+    <link rel="apple-touch-icon" type="image/x-icon" sizes="114x114" href="{{ asset('img/E-TRAVEL.png') }}">
+    <link rel="apple-touch-icon" type="image/x-icon" sizes="144x144" href="{{ asset('img/E-TRAVEL.png') }}">
+    {{ encore_entry_link_tags('app') }}
+    {{ encore_entry_script_tags('app') | replace({'src=': 'defer src='}) | raw }}
+
+    <!-- GOOGLE WEB FONT -->
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap"
+          rel="stylesheet">
+
+    <!-- BASE CSS -->
+    <link href="{{ asset('css/bootstrap.min.css') }}" rel="stylesheet">
+    <link href="{{ asset('css/style.css') }}" rel="stylesheet">
+    <link href="{{ asset('css/vendors.css') }}" rel="stylesheet">
+
+    <!-- YOUR CUSTOM CSS -->
+    <link href="{{ asset('css/custom.css') }}" rel="stylesheet">
+</head>
+
+<body>
+
+<div id="page">
+    <header class="header menu_fixed">
+        {% include('components/menus.html.twig') %}
+
+    </header>
+    <!-- /header -->
+    <section class="hero_in hotels" style=" background: url(../img/photos/Annonces.png) center center no-repeat;
+;  height: 380px; ">
+        <div class="wrapper">
+            <div class="container">
+                <h1 class="fadeInUp"><span></span>Creér une annonce</h1>
+            </div>
+        </div>
+    </section>
+    <!--/hero_in-->
+    {% for message in app.flashes('error') %}
+        <div class="alert alert-danger" style="width: 30%; margin-left: 35%"><span
+                    style="margin-left: 16%;">{{ message }}</span></div>
+    {% endfor %}
+    {{ form_start(form, {'attr': {'novalidate': 'novalidate'}}) }}
+    <div class="container mt-4 mb-4">
+
+
+        <div class="row">
+            <div class="col-md-6">
+                <div class="form-group">
+                    {{ form_row(form.citystart) }}
+
+                </div>
+            </div>
+
+            <div class="col-md-6">
+                <div class="form-group">
+                    {{ form_row(form.cityend) }}
+
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-6">
+                <div class="form-group" style="color: black">
+
+                    {{ form_row(form.datestart) }}
+
+                </div>
+            </div>
+
+            <div class="col-md-6">
+                <div class="form-group" style="color: black">
+                    {{ form_row(form.hourstart) }}
+
+                </div>
+            </div>
+        </div>
+
+
+        <div class="row">
+            <div class="col-md-6">
+                <div class="form-group" style="color: black">
+
+                    {{ form_row(form.hourend) }}
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="form-group">
+                    {{ form_row(form.prix) }}
+                </div>
+            </div>
+        </div>
+        <!-- /row-->
+        <div class="row">
+
+            <div class="col-md-6">
+                <div class="form-group">
+                    {{ form_row(form.placedispo) }}
+
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="form-group">
+                    {{ form_row(form.images) }}
+
+                </div>
+            </div>
+        </div>
+
+
+        <!-- /row-->
+        <div class="row">
+
+            <div class="col-md-6">
+                <div class="form-group">
+                    {{ form_row(form.transport) }}
+
+
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="form-group">
+                    {{ form_row(form.description) }}
+
+
+                </div>
+            </div>
+        </div>
+        <!-- /row-->
+
+    </div>
+    <button type="submit" class="btn btn-outline-success" style="margin-left: 45%"> Valider</button>
+    {{ form_end(form) }}
+    <br>
+
+
+    {% include('components/footer.html.twig') %}
+</div>
+<!-- page -->
+
+
+<div id="toTop"></div><!-- Back to top button -->
+<!-- COMMON SCRIPTS -->1
+<script src="{{ asset('js/common_scripts.js') }}"></script>
+<script src="{{ asset('js/main.js') }}"></script>
+
+
+</body>
+</html>

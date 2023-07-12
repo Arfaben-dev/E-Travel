@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+    <meta content="ie=edge" http-equiv="X-UA-Compatible">
+    <title>Document</title>
+    <link href="{{ asset('css/style.css') }}" rel="stylesheet">
+
+    <style>
+        /*content*/
+        table {
+            width: 100%;
+            color: #333333;
+            font-family: helvetica;
+            line-height: 5mm;
+            border-collapse: collapse;
+            font-size: 15px;
+            font-weight: 300;
+        }
+
+        table td {
+            padding: 0.75rem;
+            vertical-align: top;
+        }
+
+        table tr {
+            float: left;
+            padding: 8px 0;
+            border-bottom: 1px dotted #d9d9d9;
+        }
+        .text-right {
+            text-align: right;
+        }
+        @page {
+            margin: 0cm 0cm;
+        }
+
+        /** Define now the real margins of every page in the PDF **/
+        body {
+            margin-top: 2cm;
+            margin-left: 2cm;
+            margin-right: 2cm;
+            margin-bottom: 2cm;
+        }
+
+        /** Define the header rules **/
+        header {
+            position: fixed;
+            top: 0cm;
+            left: 0cm;
+            right: 0cm;
+            height: 2cm;
+            margin-left: 2cm;
+            margin-right: 2cm;
+        }
+
+        /** Define the footer rules **/
+        footer {
+            position: fixed;
+            bottom: 0cm;
+            left: 0cm;
+            right: 0cm;
+            height: 2cm;
+            text-align: center;
+            font-size: 10px;
+        }
+    </style>
+</head>
+<body>
+<page backbottom="10mm" backleft="10mm" backright="10mm" backtop="10mm" footer="page;">
+
+
+
+    <!-- Wrap the content of your PDF inside a main tag -->
+
+
+    <table style="vertical-align: top; width: 100%;">
+        <tbody>
+        <tr>
+            <td style="width: 100%; text-align: left">
+                <address>
+                    <strong>Réservé par :</strong><br>
+                    {{ user.name }}<br>
+                    {{ user.phone }}<br>
+                    {{ user.adresse }}<br>
+                    {{ user.postal }}<br>
+                    {{ user.ville }} <br>
+                    <br>
+                    <strong>Date de reservation:</strong><br>
+                    {{ reservation.createdAt|date('d-m-Y') }}<br><br>
+                </address>
+            </td>
+            <td style="width: 100%; text-align: right">
+                <address>
+                    <strong>Départ:</strong><br>
+                    {{ annonce.cityStart }}<br>
+                    <strong>Arrivée:</strong><br>
+                    {{ annonce.cityEnd }}<br>
+                    <strong>Heure départ:</strong><br>
+                    {{ annonce.hourstart|date('H:i') }}<br>
+                    <br>
+                    <strong>Date de départ:</strong><br>
+                    {{ annonce.dateStart|date('d-m-Y') }}<br><br>
+                </address>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+             <h3 style="text-align: center; color: red"> {{ (reservation.statut == 1)? "Reservation Annulée": " "}} </h3>
+    <br>
+    <h3 style="text-align: center"> Récapitulatif de la reservation</h3>
+    <br>
+    <table class="produit" style="vertical-align: top; width: 100%;">
+        <thead style="text-align: center">
+        <tr>
+            <th style="border-bottom: 1px solid #dee2e6; width: 40%;" class="text-center"><strong>Nom et Prénom</strong></th>
+            <th style="border-bottom: 1px solid #dee2e6" class="text-center"><strong>Email</strong></th>
+            <th style="border-bottom: 1px solid #dee2e6;" class="text-center"><strong>Tel</strong></th>
+            <th style="border-bottom: 1px solid #dee2e6;" class="text-center"><strong>Prix</strong></th>
+            <th style="border-bottom: 1px solid #dee2e6;" class="text-center"><strong>Place</strong></th>
+            <th style="border-bottom: 1px solid #dee2e6;" class="text-end"><strong>Total</strong></th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for place in places %}
+            <tr >
+                <td style="width: 30%; text-align: center">{{ place.nom }}</td>
+                <td style="width: 30%; text-align: center">{{ place.email }}</td>
+                <td style="width: 30%; text-align: center">{{ place.phone }}</td>
+                <td style="width: 30%; text-align: center">{{ annonce.prix }} €</td>
+                <td style="width: 30%; text-align: center">1</td>
+                <td style="width: 30%; text-align: end">{{ annonce.prix }} €</td>
+            </tr>
+        {% endfor %}
+        <tr>
+
+        <tr >
+            <td class="thick-line" ></td>
+            <td class="thick-line"></td>
+            <td class="thick-line"></td>
+            <td class="thick-line"></td>
+            <td class="thick-line " style="width: 30%; text-align: center"><strong>Montant à payer</strong></td>
+            <td class="thick-line " style="width: 30%; text-align: end">  <strong>{{ reservation.prix }} € </strong> </td>
+        </tr>
+        </tbody>
+    </table>
+</page>
+</body>
+</html>
+

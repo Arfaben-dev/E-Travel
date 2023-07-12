@@ -1,0 +1,591 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description"
+          content="Panagea - Premium site template for travel agencies, hotels and restaurant listing.">
+    <meta name="author" content="Ansonika">
+    <title>E-Travel</title>
+
+    <!-- Favicons-->
+    <link rel="shortcut icon" href="{{ asset('img/E-TRAVEL.png') }}" style="width: 500px; height: 500px"
+          type="image/x-icon">
+    <link rel="apple-touch-icon" type="image/x-icon" href="{{ asset('img/E-TRAVEL.png') }}">
+    <link rel="apple-touch-icon" type="image/x-icon" sizes="72x72" href="{{ asset('img/E-TRAVEL.png') }}">
+    <link rel="apple-touch-icon" type="image/x-icon" sizes="114x114" href="{{ asset('img/E-TRAVEL.png') }}">
+    <link rel="apple-touch-icon" type="image/x-icon" sizes="144x144" href="{{ asset('img/E-TRAVEL.png') }}">
+
+    {{ encore_entry_link_tags('app') }}
+    {{ encore_entry_script_tags('app') | replace({'src=': 'defer src='}) | raw }}
+
+    <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css"
+          integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p" crossorigin="anonymous"/>
+    <!-- GOOGLE WEB FONT -->
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap"
+          rel="stylesheet">
+
+    <!-- BASE CSS -->
+    <link href="{{ asset('css/bootstrap.min.css') }}" rel="stylesheet">
+    <link href="{{ asset('css/style.css') }}" rel="stylesheet">
+    <link href="{{ asset('css/vendors.css') }}" rel="stylesheet">
+    <link href="{{ asset('css/toastr/toastr.min.css') }}" rel="stylesheet">
+
+    <!-- YOUR CUSTOM CSS -->
+    <link href="{{ asset('css/custom.css') }}" rel="stylesheet">
+    <style>
+        .icon {
+            position: relative;
+            display: inline-block;
+            cursor: pointer;
+            margin-left: 98%;
+        }
+
+        .icon-menu {
+            display: none;
+            position: absolute;
+            top: 100%;
+            left: 10px;
+            background-color: #f1f1f1;
+            min-width: 120px;
+            padding: 0px;
+            border-radius: 4px;
+        }
+
+        .icon:hover .icon-menu {
+            display: block;
+            right: 15px;
+
+        }
+
+        .icon-menu-item {
+            display: block;
+            padding: 0px 0;
+            cursor: pointer;
+        }
+    </style>
+
+
+</head>
+
+<body class="datepicker_mobile_full"><!-- Remove this class to disable datepicker full on mobile -->
+
+<div id="page" class="theia-exception">
+
+    <header class="header menu_fixed">
+        {% include('components/menus.html.twig') %}
+
+    </header>
+    <!-- /header -->
+
+    <main>
+        <section class="hero_in hotels" style=" background: url(../img/photos/Annonces.png) center center no-repeat;
+;">
+            <div class="wrapper">
+                <div class="container">
+                    <h1 class="fadeInUp"><span></span>Detail Annonce</h1>
+                </div>
+
+            </div>
+        </section>
+        <!--/hero_in-->
+
+        <div class="bg_color_1">
+            <nav class="secondary_nav sticky_horizontal">
+                <div class="container">
+                    <ul class="clearfix">
+                        <li><a href="#description" class="active">Description</a></li>
+                        <li><a href="#reviews">Avis</a></li>
+                        <li></li>
+                    </ul>
+                </div>
+            </nav>
+            <div class="container margin_60_35">
+                <div class="row">
+                    <div class="col-lg-8">
+                        <section id="description">
+                            <h2>Description</h2>
+                            <p>{{ annonces.description }}</p>
+                            <hr>
+
+                            <h3>Images</h3>
+                            <div class="pictures_grid magnific-gallery clearfix">
+                                {% for image in annonces.images %}
+                                    <figure><a href="{{ asset('upload/images/'~image) }}" data-effect="mfp-zoom-in"><img
+                                                    src="{{ asset('upload/images/'~image) }}"></a></figure>
+                                {% endfor %}
+                            </div>
+                            <!-- /pictures -->
+
+                            <hr>
+                            <h3>Agence de voyage</h3>
+                            <br>
+                            <h4>{{ user.name }}</h4>
+                            <p>{{ user.description }}</p>
+                            <br>
+                            <div class="pictures_grid magnific-gallery clearfix">
+
+                                <figure><a href="{{ asset('upload/photo/'~user.photo) }}" data-effect="mfp-zoom-in"><img
+                                                src="{{ asset('upload/photo/'~user.photo) }}"></a></figure>
+                            </div>
+                            <!-- End Map -->
+                        </section>
+                        <!-- /section -->
+
+                        <section id="reviews">
+                            <h2>Notes et Avis</h2>
+                            <div class="reviews-container">
+                                <div class="row">
+                                    <div class="col-lg-3">
+                                        <div id="review_summary">
+                                            <strong>{{ moyen }}</strong>
+                                            {% if moyen != 0 %}
+                                                {% for i in range(1,moyen) %}
+                                                    <i class="fas fa-star "
+                                                    ></i>
+                                                {% endfor %}
+                                            {% endif %}
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-9">
+                                        <div class="row">
+                                            <div class="col-lg-10 col-9">
+                                                <div class="progress">
+                                                    <div class="progress-bar" role="progressbar" style="width: {{ e }}%"
+                                                         aria-valuenow="20" aria-valuemin="0" aria-valuemax="20"></div>
+                                                </div>
+                                            </div>
+                                            <div class="col-lg-2 col-3"><small><strong>5</strong></small></div>
+                                        </div>
+                                        <!-- /row -->
+                                        <div class="row">
+                                            <div class="col-lg-10 col-9">
+                                                <div class="progress">
+                                                    <div class="progress-bar" role="progressbar" style="width: {{ d }}%"
+                                                         aria-valuenow="20" aria-valuemin="0" aria-valuemax="100"></div>
+                                                </div>
+                                            </div>
+                                            <div class="col-lg-2 col-3"><small><strong>4</strong></small></div>
+                                        </div>
+                                        <!-- /row -->
+                                        <div class="row">
+                                            <div class="col-lg-10 col-9">
+                                                <div class="progress">
+                                                    <div class="progress-bar" role="progressbar" style="width: {{ c }}%"
+                                                         aria-valuenow="20" aria-valuemin="0" aria-valuemax="100"></div>
+                                                </div>
+                                            </div>
+                                            <div class="col-lg-2 col-3"><small><strong>3</strong></small></div>
+                                        </div>
+                                        <!-- /row -->
+                                        <div class="row">
+                                            <div class="col-lg-10 col-9">
+                                                <div class="progress">
+                                                    <div class="progress-bar" role="progressbar" style="width: {{ b }}%"
+                                                         aria-valuenow="20" aria-valuemin="0" aria-valuemax="100"></div>
+                                                </div>
+                                            </div>
+                                            <div class="col-lg-2 col-3"><small><strong>2</strong></small></div>
+                                        </div>
+                                        <!-- /row -->
+                                        <div class="row">
+                                            <div class="col-lg-10 col-9">
+                                                <div class="progress">
+                                                    <div class="progress-bar" role="progressbar" style="width: {{ a }}%"
+                                                         aria-valuenow="20" aria-valuemin="0" aria-valuemax="100"></div>
+                                                </div>
+                                            </div>
+                                            <div class="col-lg-2 col-3"><small><strong>1</strong></small></div>
+                                        </div>
+                                        <!-- /row -->
+                                    </div>
+                                </div>
+                                <!-- /row -->
+                            </div>
+
+                            <hr>
+
+                            {% if app.user %}
+                            <div class="reviews-container" id="comment-list">
+                                {% for commentaire in commentaires %}
+                                    <div class="review-box clearfix" id="commente-{{ commentaire.id }}">
+                                        {% for userse in users %}
+                                            {% if (userse.name == commentaire.commentuser) %}
+
+                                                {% if userse.photo == null %}
+                                                    <figure class="rev-thumb"><img
+                                                                src="{{ asset('img/gallery/adventure_1.jpg') }}" alt="">
+                                                    </figure>
+                                                {% elseif userse.isGoogle == null %}
+                                                    <figure class="rev-thumb"><img
+                                                                src="{{ asset('upload/photo/'~userse.photo) }}" alt="">
+                                                    </figure>
+                                                {% elseif userse.isGoogle %}
+                                                    <figure class="rev-thumb"><img src="{{ userse.photo }}" alt="">
+                                                    </figure>
+                                                {% endif %}
+                                            {% endif %}
+                                        {% endfor %}
+                                        <div class="rev-content">
+                                            {% if iduser.isPartner !=1 %}
+                                            <nav id="menu" class="main-menu">
+                                                <a class="px-3" onclick="removecomment({{ commentaire.id }})"
+                                                   style="cursor: pointer">
+                                                    <i
+                                                            class="ti-trash" style="font-size:18px; color:#fc5b62;"></i></a>
+
+
+                                            </nav>
+{% endif %}
+                                            <div class="rating">
+                                                {% for i in range(1,commentaire.note) %}
+                                                    <i class="icon_star voted"></i>
+                                                {% endfor %}
+                                            </div>
+                                            <div class="rev-info">
+                                                {{ commentaire.commentuser }}
+                                                - {{ commentaire.createdAt|date('d-m-Y') }}
+                                            </div>
+                                            <div class="rev-text">
+                                                <p>
+                                                    {{ commentaire.nom }}
+
+                                                </p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <!-- /review-box -->
+                                {% endfor %}
+                            </div>
+
+                            <!-- /review-container -->
+                        </section>
+                        <!-- /section -->
+                        <hr>
+                        {% if iduser.isPartner !=  1 %}
+                            <div class="add-review">
+                                <h5> Commentaire</h5>
+
+                                <div class="row">
+                                    <form action="{{ path('commentaire', {'id': annonces.id}) }}" method="post">
+
+                                        <div class="form-group col-md-6">
+                                            <label>Notation</label>
+                                            <br>
+                                            <div style="font-size: 20px" class="stars">
+                                                <i class="fas fa-star star-light submit_star mr-1" id="submit_star_1"
+                                                   data-rating="1"></i>
+                                                <i class="fas fa-star star-light submit_star mr-1" id="submit_star_2"
+                                                   data-rating="2"></i>
+                                                <i class="fas fa-star star-light submit_star mr-1" id="submit_star_3"
+                                                   data-rating="3"></i>
+                                                <i class="fas fa-star star-light submit_star mr-1" id="submit_star_4"
+                                                   data-rating="4"></i>
+                                                <i class="fas fa-star star-light submit_star mr-1" id="submit_star_5"
+                                                   data-rating="5"></i>
+                                            </div>
+                                            <input type="hidden" name="note" id="note" class="notes">
+                                        </div>
+
+                                        <div class="form-group col-md-12">
+                                            <label>Commentaire</label>
+
+                                            <textarea name="commente" class="form-control "
+                                                      style="height:130px;" required></textarea>
+                                        </div>
+                                        <div class="form-group col-md-12 add_top_20" style="margin-left: 45%">
+                                            <button type="submit" class="btn btn-outline-success"
+                                            > Valider
+                                            </button>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        {% endif %}
+                        {% else %}
+
+                        {% endif %}
+                    </div>
+
+                    <!-- /col -->
+
+                    <aside class="col-lg-4" id="sidebar">
+                        <div class="box_detail booking">
+                            <div class="h4 text-center">{{ annonces.datestart|date('d-m-Y') }}</div>
+
+
+                            <div class="d-flex justify-content-between">
+                                <div class="p-2 h5">{{ annonces.hourstart|date(' H:i') }}</div>
+                                <div class="p-2 h5" style="color: #fc5b62;">{{ annonces.citystart }}</div>
+                            </div>
+                            <div class="d-flex justify-content-between">
+                                <div class="p-2 h5">{{ annonces.hourend|date(' H:i') }}</div>
+                                <div class="p-2 h5" style="color: #fc5b62;">{{ annonces.cityend }}</div>
+                            </div>
+                            <br>
+                            <div class="price">
+
+
+                                <span style="margin-left: 40%">{{ annonces.prix }} €</span>
+                                <br><br>
+
+                                {% if  (0 < annonces.placedispo - annonces.placeprise )and(annonces.placedispo - annonces.placeprise <= 10) %}
+                                    <span style="margin-left: 25%; font-size: 15px;color: red"> {{ annonces.placedispo }} places disponibles</span>
+                                {% elseif annonces.placedispo - annonces.placeprise == 0 %}
+                                    <span style="margin-left: 25%; font-size: 15px;color: red">plus de  places disponibles</span>
+                                {% else %}
+                                    <span style="margin-left: 25%; font-size: 15px">{{ annonces.placedispo - annonces.placeprise }} places disponibles</span>
+
+                                {% endif %}
+                            </div>
+                            {% if is_granted('ROLE_CLIENT') %}
+                                {% if reservations|length == 1 %}
+
+                                    <div class=" col-lg-12">
+                                        <h3 class="text-center" style="color: red"> Déjà Réservé</h3>
+                                    </div>
+                                {% else %}
+                                    <div class="col-lg-12">
+                                        <a href="{{ path('panier', {'id': annonces.id}) }}"
+                                           class="btn btn-outline-success"
+                                           style="width: 100%" disabled="">Reserver</a>
+                                    </div>
+                                {% endif %}
+
+                            {% else %}
+                            {% endif %}
+
+                        </div>
+                    </aside>
+                </div>
+                <!-- /row -->
+            </div>
+            <!-- /container -->
+        </div>
+        <!-- /bg_color_1 -->
+    </main>
+    <!--/main-->
+
+    {% include('components/footer.html.twig') %} <!--/footer-->
+</div>
+<!-- page -->
+
+
+<div id="toTop"></div><!-- Back to top button -->
+
+<!-- COMMON SCRIPTS -->
+<script src="{{ asset('js/common_scripts.js') }}"></script>
+<script src="{{ asset('js/main.js') }}"></script>
+<script src="{{ asset('phpmailer/validate.js') }}"></script>
+<script src="https://code.jquery.com/jquery-3.7.0.min.js"></script>
+
+<!-- Toastr -->
+<script src="{{ asset('js/toastr/toastr.min.js') }}"></script>
+<script>
+    // public/js/favorite.js
+
+
+    function removecomment(id) {
+        // Effectuez une requête AJAX pour supprimer l'article des favoris
+        fetch('deletecommentaire/' + id, {
+            method: 'POST',
+
+        })
+            .then(response => response.json())
+            .then(data => {
+                console.log(data.message);
+
+                // Mettez à jour la liste des favoris sur la page sans rafraîchir
+                // Par exemple, supprimez l'élément de la liste avec l'ID correspondant
+                const favoriteItem = document.getElementById('commente-' + id);
+                if (favoriteItem) {
+                    favoriteItem.remove();
+                }
+                setTimeout(function () {
+                    toastr.options = {
+                        closeButton: true,
+                        progressBar: true,
+                        showMethod: 'slideDown',
+                        timeOut: 4000
+                    };
+
+                    toastr.success('Commentaire supprimé');
+
+                }, 1300);
+            })
+            .catch(error => {
+                console.error(error);
+            });
+    }
+
+    function addcomment() {
+        // Effectuez une requête AJAX pour supprimer l'article des favoris
+        var note = localStorage.getItem('note');
+        var commente = document.getElementById('commente').value;
+
+        // Première page
+
+        $.ajax({
+            url: "{{ path('commentaire',{'id': annonces.id}) }}",
+            method: "POST",
+            data: {note: note, commente: commente},
+            success: function (response) {
+
+                // Supposez que vous avez un objet JSON appelé "nouveauCommentaire" contenant les données du nouveau commentaire
+
+
+// Créez un nouvel élément div pour la boîte de commentaire
+                var reviewBox = document.createElement('div');
+                reviewBox.classList.add('review-box', 'clearfix');
+                reviewBox.id = 'commente-' + response.id;
+
+// Créez un élément figure pour l'image de l'avatar
+                var figure = document.createElement('figure');
+                figure.classList.add('rev-thumb');
+                var img = document.createElement('img');
+
+                img.src = '{{ asset('img/avatar2.jpg') }}'; // Remplacez par la valeur de l'objet JSON correspondante
+                img.alt = '';
+                figure.appendChild(img);
+// Créez un élément div pour le contenu de la revue
+                var revContent = document.createElement('div');
+                revContent.classList.add('rev-content');
+
+// Créez un élément nav pour le menu
+                var nav = document.createElement('nav');
+                nav.classList.add('main-menu');
+                var a = document.createElement('a');
+                a.classList.add('px-3');
+                a.setAttribute('onclick', 'removecomment(' + response.id + ')');
+                a.style.cursor = 'pointer';
+                var i = document.createElement('i');
+                i.classList.add('ti-trash');
+                i.style.fontSize = '18px';
+                i.style.color = '#fc5b62';
+                a.appendChild(i);
+                nav.appendChild(a);
+
+                console.log(response.id)
+
+// Créez un élément div pour la note
+                var rating = document.createElement('div');
+                rating.classList.add('rating');
+
+                for (var i = 0; i < response.note; i++) {
+                    var starIcon = document.createElement('i');
+                    starIcon.classList.add('icon-star', 'voted');
+                    rating.appendChild(starIcon);
+                }
+
+// Créez un élément div pour les informations de la revue
+                var revInfo = document.createElement('div');
+                revInfo.classList.add('rev-info');
+                revInfo.textContent = '{{ app.user }}' + ' – ' + '12-2-202'; // Remplacez par les valeurs de l'objet JSON correspondantes
+// Créez un élément div pour le texte de la revue
+                var revText = document.createElement('div');
+                revText.classList.add('rev-text');
+                var p = document.createElement('p');
+                p.textContent = response.commente; // Remplacez par la valeur de l'objet JSON correspondante
+                revText.appendChild(p);
+
+// Ajoutez les éléments créés à la boîte de commentaire
+                revContent.appendChild(nav);
+                revContent.appendChild(rating);
+                revContent.appendChild(revInfo);
+                revContent.appendChild(revText);
+                reviewBox.appendChild(figure);
+                reviewBox.appendChild(revContent);
+
+// Ajoutez la boîte de commentaire au conteneur parent avec l'id "comment-list"
+                var commentList = document.getElementById('comment-list');
+                commentList.appendChild(reviewBox);
+                document.querySelector(".monInputClass").value = "";
+                setTimeout(function () {
+                    toastr.options = {
+                        closeButton: true,
+                        progressBar: true,
+                        showMethod: 'slideDown',
+                        timeOut: 4000
+                    };
+
+                    toastr.success(response.message);
+
+                }, 1300);
+
+            }
+        });
+
+
+    }
+
+</script>
+
+<script>
+
+
+    $(document).ready(function () {
+
+        var rating_data = 0;
+
+
+        $(document).on('mouseenter', '.submit_star', function () {
+
+            var rating = $(this).data('rating');
+
+            reset_background();
+
+            for (var count = 1; count <= rating; count++) {
+
+                $('#submit_star_' + count).addClass('text-warning');
+
+            }
+
+        });
+
+        function reset_background() {
+            for (var count = 1; count <= 5; count++) {
+
+                $('#submit_star_' + count).addClass('star-light');
+
+                $('#submit_star_' + count).removeClass('text-warning');
+
+            }
+        }
+
+        $(document).on('mouseleave', '.submit_star', function () {
+
+            reset_background();
+
+            for (var count = 1; count <= rating_data; count++) {
+
+                $('#submit_star_' + count).removeClass('star-light');
+
+                $('#submit_star_' + count).addClass('text-warning');
+            }
+
+        });
+
+        $(document).on('click', '.submit_star', function () {
+
+            rating_data = $(this).data('rating');
+
+            localStorage.setItem('note', rating_data);
+            document.querySelector(".notes").value = rating_data;
+        });
+
+
+        function toggleMenu() {
+            var menu = document.querySelector(".icon-menu");
+            menu.style.display = (menu.style.display === "block") ? "none" : "block";
+        }
+
+
+    });
+
+</script>
+
+
+</body>
+</html>

@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description"
+          content="Panagea - Premium site template for travel agencies, hotels and restaurant listing.">
+    <meta name="author" content="Ansonika">
+    <title>E-Travel</title>
+    <!-- Favicons-->
+    <link rel="shortcut icon" href="{{ asset('img/E-TRAVEL.png') }}" type="image/x-icon">
+
+    {{ encore_entry_script_tags('app') }}
+    <!-- GOOGLE WEB FONT -->
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap"
+          rel="stylesheet">
+
+    <!-- BASE CSS -->
+    <link href="{{ asset('css/bootstrap.min.css') }}" rel="stylesheet">
+    <link href="{{ asset('css/style.css') }}" rel="stylesheet">
+    <link href="{{ asset('css/vendors.css') }}" rel="stylesheet">
+
+    <!-- YOUR CUSTOM CSS -->
+    <link href="{{ asset('css/custom.css') }}" rel="stylesheet">
+    {{ encore_entry_script_tags('app') | replace({'src=': 'defer src='}) | raw }}
+
+
+</head>
+
+<body   >
+
+<div id="page">
+
+    <header class="header menu_fixed">
+        {% include('components/menus.html.twig') %}
+
+    </header>
+    <!-- /header -->
+
+    <main  {{ stimulus_controller('symfony/ux-swup/swup') }} id="swup">
+
+        <section class="hero_in hotels" style=" background: url(../img/photos/inscription.png) center center no-repeat;
+;height: 250px">
+            <div class="wrapper">
+                <div class="container">
+                    <h1 class="fadeInUp"><span></span>Devenir Paternaire</h1>
+                </div>
+            </div>
+        </section>
+        <br>
+        {% for flash_error in app.flashes('verify_email_error') %}
+            <div class="alert alert-danger" role="alert">{{ flash_error }}</div>
+        {% endfor %}
+
+
+
+        <div class="container mt-4 mb-4" >
+
+            {{ form_start(registrationForm, {'attr': {'novalidate': 'novalidate'}}) }}
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="form-group" style="color: black">
+                        {{ form_row(registrationForm.name) }}
+
+                    </div>
+                </div>
+
+                <div class="col-md-6">
+                    <div class="form-group" style="color: black">
+                        {{ form_row(registrationForm.email) }}
+
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="form-group" style="color: black">
+
+                        {{ form_row(registrationForm.adresse) }}
+
+                    </div>
+                </div>
+
+                <div class="col-md-6">
+                    <div class="form-group" style="color: black">
+                        {{ form_row(registrationForm.postal) }}
+
+                    </div>
+                </div>
+            </div>
+
+
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="form-group" style="color: black">
+
+                        {{ form_row(registrationForm.ville) }}
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group" style="color: black"        >
+                        {{ form_row(registrationForm.plainPassword) }}
+
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="form-group" style="color: black">
+
+                        {{ form_row(registrationForm.phone) }}
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group" style="color: black">
+
+                        {{ form_row(registrationForm.photo  ) }}
+                    </div>
+                </div>
+                <div class="col-md-12">
+                    <div class="form-group" style="color: black" >
+
+
+                        {{ form_row(registrationForm.description) }}
+
+                    </div>
+                </div>
+
+            </div>
+            <div class="form-group">{{ form_row(registrationForm.agreeTerms) }}</div>
+        </div>
+
+
+
+        <button type="submit" class="btn btn-outline-success" style="margin-left: 46%"> S'inscire</button>
+
+        {{ form_end(registrationForm) }}
+
+        <div class="text-center" style="margin-top: 1%">  Vous avez déja un compte parternaire? <a href="{{path('app_login')}}" style="color:  #fc5b62"> Se connecter</a> </div>
+
+
+        <br>
+        {% include('components/footer.html.twig') %}
+    </main>
+    <!--/main-->
+
+</div>
+<!-- page -->
+
+
+<div id="toTop"></div><!-- Back to top button -->
+
+<!-- COMMON SCRIPTS -->
+<script src="{{ asset('js/common_scripts.js') }}"></script>
+<script src="{{ asset('js/main.js') }}"></script>
+<script src="{{ asset('phpmailer/validate.js') }}"></script>
+
+
+</body>
+</html>

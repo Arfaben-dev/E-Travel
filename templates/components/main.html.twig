@@ -1,0 +1,371 @@
+{% extends('components/index.html.twig') %}
+
+{% block content %}
+
+    <section class="header-video">
+        <div id="hero_video">
+            <div class="wrapper">
+                <div class="container">
+                    <h3>Reservez votre voyage!</h3>
+                    <p>Explorez nos différentes offres</p>
+
+
+                </div>
+            </div>
+        </div>
+        <img src="img/video_fix.png" alt="" class="header-video--media" data-video-src="video/intro"
+             data-teaser-source="video/intro" data-provider="" data-video-width="1920" data-video-height="960">
+    </section>
+    <!-- /header-video -->
+
+
+    <div class="container container-custom margin_80_0">
+        <div class="main_title_2">
+            <span><em></em></span>
+            <h2>Annonces</h2>
+
+        </div>
+
+
+        {% if annonce|length == 0 %}
+        <img style="margin-left: 30%; margin-top: -3%" src="{{ asset('img/photos/AucuneAnnonce.png') }}">
+
+        {% else %}
+        <div id="reccomended" class="owl-carousel owl-theme">
+            {% for annonces in annonce %}
+
+                <div class="item">
+                    <div class="box_grid">
+                        <figure>
+
+
+                            {% for image in annonces.images %}
+                                <a href="{{ path('detailannonce', {'id': annonces.id}) }}l"><img
+                                            src="{{ asset('upload/images/'~image) }}" class="img-fluid" alt=""
+                                            width="800" height="533">
+                                    <div class="read_more"><span>Voir plus</span></div>
+                                </a>
+                            {% endfor %}
+                            <small>{{ annonces.citystart }}->{{ annonces.cityend }}</small>
+                        </figure>
+                        <div class="wrapper">
+                            <div class="h6 text-center">{{ annonces.datestart|date('d-m-Y') }}</div>
+                            <div class="d-flex justify-content-between">
+                                <div class="p-2 h6">{{ annonces.hourstart|date(' H:i') }}</div>
+                                <div class="p-2 h6"
+                                     style="color: #fc5b62;">{{ annonces.citystart }}</div>
+                            </div>
+                            <div class="d-flex justify-content-between">
+                                <div class="p-2 h6">{{ annonces.hourend|date(' H:i') }}</div>
+                                <div class="p-2 h6" style="color: #fc5b62;">{{ annonces.cityend }}</div>
+                            </div>
+                            <br>
+                            <span class="price" style="margin-left: 45%; font-size: 18px    "> <strong>{{ annonces.prix }}€</strong></span>
+                            <br>
+
+
+                            <span style="margin-left: 25%; font-size: 15px"> <strong>{{ annonces.placedispo - annonces.placeprise }} places disponibles </strong></span>
+
+                        </div>
+                        {% if app.user %}
+
+                            <a href="{{ path('like', {'id': annonces.id} ) }}" class="fav like">
+                                {% if app.user in annonces.likes %}
+                                    <i class="icon-bookmark"></i>
+
+                                {% else %}
+
+                                    <i class=" icon-bookmark-empty"></i>
+
+
+                                {% endif %}
+
+
+                                <span class="js-likes">{{ annonces.likes|length }}</span>
+                            </a>
+
+
+                        {% else %}
+                            <a href="{{ path('app_login') }}" class="fav">
+
+                                <i class=" icon-bookmark-empty"></i>
+                                <span class="js-likes">{{ annonces.likes|length }}</span>
+
+                            </a>
+                        {% endif %}
+                        <ul>
+
+                            <li></li>
+
+                            <li>
+                                <div class="score">{{ annonces.commentaires|length}} avis </em></span><strong>8.9</strong></div>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            {% endfor %}
+            {% endif %}
+        </div>
+        <!-- /carousel -->
+        <p class="btn_home_align"><a href="{{ path('allannonce') }}" class="btn_1 rounded">Voir toutes les annonces</a>
+        </p>
+        <hr class="large">
+    </div>
+    <!-- /container -->
+
+    <div class="container container-custom margin_30_95">
+        <section class="add_bottom_45">
+            <div class="main_title_3">
+                <span><em></em></span>
+                <h2>Nos  Partenaires</h2>
+
+            </div>
+            <div class="row">
+
+                {% for user in users %}
+                    <!-- /grid_item -->
+                    <div class="col-xl-3 col-lg-6 col-md-6">
+                        <a href="{{ path('detailagence', {'id': user.id}) }}" class="grid_item">
+                            <figure >
+                                <div class="score"><strong>8.9</strong></div>
+                                <img src="{{ asset('upload/photo/'~user.photo) }}" class="img-fluid" alt="" >
+                                <div class="info">
+                                    <div class="cat_star"><i class="icon_star"></i><i class="icon_star"></i><i
+                                                class="icon_star"></i><i class="icon_star"></i></div>
+                                    <h3>{{ user.name }}</h3>
+                                </div>
+                            </figure>
+                        </a>
+                    </div>
+                {% endfor %}
+                <!-- /grid_item -->
+            </div>
+            <!-- /row -->
+            <a href="{{ path('allpaternaire') }}"><strong>Voir plus ({{ users|length }}) <i class="arrow_carrot-right"></i></strong></a>
+        </section>
+        <!-- /section -->
+
+        <section class="add_bottom_45">
+            <div class="main_title_3">
+                <span><em></em></span>
+                <h2>Nos destinations populaires par avion</h2>
+            </div>
+            <div class="row">
+                <div class="col-xl-3 col-lg-6 col-md-6">
+                    <a href="restaurant-detail.html" class="grid_item">
+                        <figure>
+                            <div class="score"><strong>8.5</strong></div>
+                            <img src="{{ asset('img/photos/Paris.png') }}" class="img-fluid" alt="">
+                            <div class="info">
+                                <h3>Paris</h3>
+
+                            </div>
+                        </figure>
+                    </a>
+                </div>
+                <!-- /grid_item -->
+                <div class="col-xl-3 col-lg-6 col-md-6">
+                    <a href="restaurant-detail.html" class="grid_item">
+                        <figure>
+                            <div class="score"><strong>7.9</strong></div>
+                            <img src="img/photos/NewYork.png" class="img-fluid" alt="">
+                            <div class="info">
+                                <h3>New York</h3>
+
+                            </div>
+                        </figure>
+                    </a>
+                </div>
+                <!-- /grid_item -->
+                <div class="col-xl-3 col-lg-6 col-md-6">
+                    <a href="restaurant-detail.html" class="grid_item">
+                        <figure>
+                            <div class="score"><strong>7.5</strong></div>
+                            <img src="img/photos/Tokyo.png" class="img-fluid" alt="">
+                            <div class="info">
+                                <h3>Tokyo</h3>
+
+                            </div>
+                        </figure>
+                    </a>
+                </div>
+                <!-- /grid_item -->
+                <div class="col-xl-3 col-lg-6 col-md-6">
+                    <a href="restaurant-detail.html" class="grid_item">
+                        <figure>
+                            <div class="score"><strong>9.0</strong></div>
+                            <img src="img/photos/Dubai.png" class="img-fluid" alt="">
+                            <div class="info">
+                                <h3>Dubai</h3>
+
+                            </div>
+                        </figure>
+                    </a>
+                </div>
+                <!-- /grid_item -->
+            </div>
+            <!-- /row -->
+
+        </section>
+        <!-- /section -->
+
+        <div class="banner mb-0">
+            <div class="wrapper d-flex align-items-center opacity-mask" data-opacity-mask="rgba(0, 0, 0, 0.3)">
+                <div>
+                    <h3>Votre parfait partenaire d'aventures</h3>
+                    <p>Activités et accomodations</p>
+
+                </div>
+            </div>
+            <!-- /wrapper -->
+        </div>
+        <!-- /banner -->
+
+    </div>
+    <!-- /container -->
+
+    <div class="bg_color_1">
+        <div class="container margin_80_55">
+            <div class="main_title_2">
+                <span><em></em></span>
+                <h3> Avis</h3>
+            </div>
+            <div class="row">
+                <div class="col-lg-6">
+                    <a class="box_news" href="#0">
+                        <figure><img src="{{ asset('img/photos/Avis2.png') }}" alt="">
+                            <figcaption><strong>5/5</strong></figcaption>
+                        </figure>
+                        <ul>
+                            <li>Mark</li>
+                            <li>20.03.2023</li>
+                        </ul>
+                        <h4>Satisfait</h4>
+                        <p>J'ai économisé beaucoup d'argent grace à ce site, je recommande...</p>
+                    </a>
+                </div>
+                <!-- /box_news -->
+                <div class="col-lg-6">
+                    <a class="box_news" href="#0">
+                        <figure><img src="img/photos/Avis1.png" alt="">
+                            <figcaption><strong>5/5</strong></figcaption>
+                        </figure>
+                        <ul>
+                            <li>Jhon</li>
+                            <li>25.03.2023</li>
+                        </ul>
+                        <h4>Superbe</h4>
+                        <p>Site avec beaucoup d'agences partenaires qui proposent plein d'offres intéressantes.</p>
+                    </a>
+                </div>
+                <!-- /box_news -->
+                <div class="col-lg-6">
+                    <a class="box_news" href="#0">
+                        <figure><img src="img/photos/Avis3.png" alt="">
+                            <figcaption><strong>4/5</strong></figcaption>
+                        </figure>
+                        <ul>
+                            <li>Romain</li>
+                            <li>27.03.2023</li>
+                        </ul>
+                        <h4>très bien</h4>
+                        <p>J'ai pu trouver un vol arrangeant pour ma destination de cet été grace à vous, merci!</p>
+                    </a>
+                </div>
+                <!-- /box_news -->
+                <div class="col-lg-6">
+                    <a class="box_news" href="#0">
+                        <figure><img src="img/photos/Avis4.png" alt="">
+                            <figcaption><strong>5/5</strong></figcaption>
+                        </figure>
+                        <ul>
+                            <li>Paula</li>
+                            <li>10.04.2023</li>
+                        </ul>
+                        <h4>Excellent</h4>
+                        <p>Je suis vraiment reconaissante, j'ai fais des économies considérables sur le site. </p>
+                    </a>
+                </div>
+                <!-- /box_news -->
+                <div class="col-lg-6">
+                    <a class="box_news" href="#0">
+                        <figure><img src="img/photos/Avis8.png" alt="">
+                            <figcaption><strong>4/5</strong></figcaption>
+                        </figure>
+                        <ul>
+                            <li>Christine</li>
+                            <li>16.04.2023</li>
+                        </ul>
+                        <h4>Génial</h4>
+                        <p>Très bon site, une excellente découverte. </p>
+                    </a>
+                </div>
+                <!-- /box_news -->
+                <div class="col-lg-6">
+                    <a class="box_news" href="#0">
+                        <figure><img src="img/photos/Avis5.png" alt="">
+                            <figcaption><strong>5/5</strong></figcaption>
+                        </figure>
+                        <ul>
+                            <li>Louis</li>
+                            <li>21.04.2023</li>
+                        </ul>
+                        <h4>Remarquable</h4>
+                        <p>Dorénavant je connais le bon site pour toutes mes réservations ;) </p>
+                    </a>
+                </div>
+                <!-- /box_news -->
+                <div class="col-lg-6">
+                    <a class="box_news" href="#0">
+                        <figure><img src="img/photos/Avis6.png" alt="">
+                            <figcaption><strong>5/5</strong></figcaption>
+                        </figure>
+                        <ul>
+                            <li>Gabriel</li>
+                            <li>02.05.2023</li>
+                        </ul>
+                        <h4>Formidable</h4>
+                        <p>Je partage le site avec tous mes proches et amis!! </p>
+                    </a>
+                </div>
+                <!-- /box_news -->
+                <div class="col-lg-6">
+                    <a class="box_news" href="#0">
+                        <figure><img src="img/photos/Avis7.png" alt="">
+                            <figcaption><strong>4/5</strong></figcaption>
+                        </figure>
+                        <ul>
+                            <li>Emma</li>
+                            <li>13.05.2023</li>
+                        </ul>
+                        <h4>Chouette</h4>
+                        <p>J'ai adoré ce site ^^ </p>
+                    </a>
+                </div>
+
+
+
+
+            </div>
+            <!-- /row -->
+        </div>
+        <!-- /container -->
+    </div>
+    <!-- /bg_color_1 -->
+
+    <div class="call_section" >
+        <div class="container clearfix">
+            <div class="col-lg-5 col-md-6 float-end wow position-relative" data-wow-offset="250">
+                <div class="block-reveal">
+                    <div class="block-vertical"></div>
+                    <div class="box_1">
+                        <h3><h3>Découvrez une expérience de voyage unique avec nous!</h3></h3>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--/call_section-->
+
+{% endblock %}

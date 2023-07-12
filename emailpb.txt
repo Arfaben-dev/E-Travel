@@ -1,0 +1,2 @@
+php bin/console messenger:consume // proble
+me avec mailtrap

@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description"
+          content="Panagea - Premium site template for travel agencies, hotels and restaurant listing.">
+    <meta name="author" content="Ansonika">
+    <title>E-Travel</title>
+    {{ encore_entry_link_tags('app') }}
+    {{ encore_entry_script_tags('app') | replace({'src=': 'defer src='}) | raw }}
+    <!-- Favicons-->
+    <link rel="shortcut icon" href="{{ asset('img/E-TRAVEL.png') }}" type="image/x-icon">
+
+    <!-- GOOGLE WEB FONT -->
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap"
+          rel="stylesheet">
+
+    <!-- BASE CSS -->
+    <link href="{{ asset('css/bootstrap.min.css') }}" rel="stylesheet">
+    <link href="{{ asset('css/style.css') }}" rel="stylesheet">
+    <link href="{{ asset('css/vendors.css') }}" rel="stylesheet">
+
+    <!-- YOUR CUSTOM CSS -->
+    <link href="{{ asset('css/custom.css') }}" rel="stylesheet">
+    <link href="{{ asset('css/toastr/toastr.min.css') }}" rel="stylesheet">
+
+    <style>
+        .fav:hover {
+            color: #fc5b62;
+        }
+
+        .fav {
+            position: absolute;
+            right: 15px;
+            top: 15px;
+            z-index: 1;
+            color: #fc5b62;
+
+            padding: 9px 10px;
+            display: inline-block;
+            line-height: 1;
+            -webkit-border-radius: 3px;
+            -moz-border-radius: 3px;
+            -ms-border-radius: 3px;
+            border-radius: 3px;
+
+        }
+    </style>
+</head>
+
+<body>
+
+<div id="page">
+
+    <header class="header menu_fixed">
+        {% include('components/menus.html.twig') %}
+
+    </header>
+    <!-- /header -->
+
+    <main>
+
+        <section class="hero_in hotels" style=" background: url(../img/photos/Favoris.png) center center no-repeat;
+; height: 380px;">
+            <div class="wrapper">
+                <div class="container">
+                    <h1 class="fadeInUp"><span></span>Nos partenaires</h1>
+                </div>
+            </div>
+        </section>
+        <div class="container margin_60_35">
+
+            <div class="wrapper-grid">
+                <div class="row">
+
+
+                        {% for user in pagination %}
+
+                            <div class="col-xl-4 col-lg-6 col-md-6" >
+                                <div class="box_grid">
+                                    <figure>
+
+
+                                            <a href="{{ path('detailagence', {'id': user.id}) }}"><img
+                                                        src="{{ asset('upload/photo/'~user.photo) }}"
+                                                        class="img-fluid" alt="" width="800" height="533">
+                                                <div class="read_more"><span>Voir plus</span></div>
+                                            </a>
+
+                                        <small>8</small>
+                                    </figure>
+                                    <div class="wrapper">
+                                        <div class="cat_star"><i class="icon_star"></i></div>
+                                        <div class="h6 text-center">{{ user.name}}</div>
+
+                                        <br>
+
+
+                                    </div>
+                                    <ul>
+                                        <li><i class="icon_clock_alt"></i></li>
+                                        <li>
+                                            <div class="score">
+                                                <span>Superb<em>350 Reviews</em></span><strong>8.9</strong></div>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+
+                        {% endfor %}
+
+
+                    <span style="margin-left: 8%">{{ knp_pagination_render(pagination,'annonce/base.html.twig') }}</span>
+
+                </div>
+                <!-- /row -->
+
+            </div>
+            <!-- /isotope-wrapper -->
+
+        </div>
+        <!-- /container -->
+    </main>
+    <!--/main-->
+
+    {% include('components/footer.html.twig') %}
+</div>
+<!-- page -->
+
+
+<div id="toTop"></div><!-- Back to top button -->
+
+<!-- COMMON SCRIPTS -->
+<script src="{{ asset('js/common_scripts.js') }}"></script>
+<script src="{{ asset('js/main.js') }}"></script>
+<script src="{{ asset('phpmailer/validate.js') }}"></script>
+<script src="https://code.jquery.com/jquery-3.7.0.min.js"></script>
+
+<!-- Toastr -->
+<script src="{{ asset('js/toastr/toastr.min.js') }}"></script>
+
+
+</body>
+</html>

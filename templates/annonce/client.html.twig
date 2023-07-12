@@ -1,0 +1,53 @@
+{% extends('components/index.html.twig') %}
+
+
+{% block content %}
+
+
+    <section class="hero_in hotels" style=" background: url(../img/photos/Annonces.png) center center no-repeat;
+">
+        <div class="wrapper">
+            <div class="container">
+                <h1 class="fadeInUp"><span></span>Mes Clients</h1>
+            </div>
+        </div>
+    </section>
+
+    <div class="card mb-5">
+
+        <div class="card-body">
+            <div class="table-responsive">
+                <table class="table table-bordered" id="dataTable" width="100%" cellspacing="1">
+                    <thead>
+                    <tr>
+
+                        <th class="text-center">Nom du client</th>
+                        <th class="text-center">E-mail du client</th>
+                        <th class="text-center">Numéro de téléphone du client</th>
+
+
+                    </tr>
+                    </thead>
+
+                    <tbody>
+
+                    {% for place in places %}
+                        <tr>
+
+                            <td class="text-center"> {{ place.nom }} </td>
+                            <td class="text-center"> {{ place.email }} </td>
+                            <td class="text-center"> {{ place.phone}} </td>
+
+
+
+
+                        </tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+
+{% endblock %}

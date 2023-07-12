@@ -1,0 +1,84 @@
+{% extends('components/index.html.twig') %}
+
+
+{% block content %}
+
+
+    <section class="hero_in hotels " style=" background: url(../img/photos/Reservations.png) center center no-repeat;
+">
+        <div class="wrapper">
+            <div class="container">
+                <h1 class="fadeInUp"><span></span>Mes Reservations</h1>
+            </div>
+        </div>
+    </section>
+
+    <div class="card mb-5">
+
+        <div class="card-body">
+            <div class="table-responsive">
+                <table class="table table-bordered" id="dataTable" width="100%" cellspacing="1">
+                    <thead>
+                    <tr>
+                        <th class="text-center">Numéro de reservation</th>
+                        <th class="text-center">Nombre de places</th>
+                        <th class="text-center">Prix total</th>
+                        <th class="text-center">Statut</th>
+                        <th class="text-center">Opérations</th>
+
+
+                    </tr>
+                    </thead>
+
+                    <tbody>
+
+                    {% for reservation in reservations %}
+                        <tr>
+
+                            <td class="text-center"> {{ reservation.ref }} </td>
+                            <td class="text-center"> {{ reservation.nbreplace }} </td>
+                            <td class="text-center"> {{ reservation.prix }} €</td>
+                            <td class="text-center">
+
+                                {% if reservation.statut==1 %}
+                                    <span class="btn btn-danger">Annuler</span>
+                                {% else %}
+                                    {% if reservation.createdAt|date('d-m-Y') < currentdate|date('d-m-Y') %}
+                                        <span class="btn btn-success">Terminé</span>
+
+                                    {% elseif reservation.statut==0 %}
+                                        <span class="btn btn-success">En cours</span>
+
+                                    {% endif %}
+                                {% endif %}
+
+                            </td>
+                            <td class="text-center">
+                                <a href="{{ path('detailreservation', {'id': reservation.id}) }}" class="px-3"><i
+                                            class=" icon-download-cloud" style="font-size:18px; color:#004dda;"></i></a>
+                                {% if (reservation.statut==1) or ( reservation.createdAt|date('d-m-Y') < currentdate|date('d-m-Y')) %}
+
+
+                                    <a href="{{ path('cancelreservation', {'id': reservation.id}) }}" class="px-3"
+                                       onclick="return confirm('Voulez-vous vraiment annuler cette reservation?')"
+                                       style="display: none"><i class="icon-cancel" style="font-size:18px; color:#fc5b62;"> </i></a>
+                                {% else %}
+                                    <a href="" class="px-3" ><i
+                                                class="ti-pencil" style="font-size:18px; color:#004dda;"></i></a>
+                                    <a href="{{ path('cancelreservation', {'id': reservation.id}) }}" class="px-3"
+                                       onclick="return confirm('Voulez-vous vraiment annuler cette reservation?')"
+                                      ><i class="icon-cancel" style="font-size:18px; color:#fc5b62;"> </i></a>
+                                {% endif %}
+
+                            </td>
+                        </tr>
+                    {% endfor %}
+
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+
+{% endblock %}

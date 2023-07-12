@@ -1,0 +1,71 @@
+<div id="preloader">
+    <div data-loader="circle-side"></div>
+</div><!-- /Page Preload -->
+<div id="logo">
+    <a href="{{ path('/') }}">
+        <img src="{{ asset('img/E-TRAVEL.png') }}" width="150" height="150" alt="" class="logo_normal"
+             style="margin-top: -22%;">
+        <img src="{{ asset('img/E-TRAVEL.png') }}" width="110" height="110" alt="" class="logo_sticky"
+             style="margin-top: -22%;">
+    </a>
+
+</div>
+
+<!-- /top_menu -->
+<a href="#menu" class="btn_mobile">
+    <div class="hamburger hamburger--spin" id="hamburger">
+        <div class="hamburger-box">
+            <div class="hamburger-inner"></div>
+        </div>
+    </div>
+</a>
+
+
+<nav id="menu" class="main-menu"  style="margin-right:5% ">
+    <ul>
+        <li><span><a href="{{ path('/') }}">Accueil</a></span>
+
+        </li>
+        <li><span><a href="{{ path('allannonce') }}">Annonces</a></span>
+        </li>
+        <li><span><a href="{{ path('allpaternaire') }}">Nos parternaires</a></span>
+
+        </li>
+        <li><span><a href="{{ path('about') }}">A propos de nous</a></span>
+            {% if app.user %}
+        <li><span><a href="#0">{{ app.user.name }}</a></span>
+            <ul style="margin-right:55% ">
+                <li>
+                    <a href="{{ path('profil', {'id': app.user.id}) }}">Profil</a>
+
+                </li>
+                {% if is_granted('ROLE_CLIENT') %}
+                    <li>
+                        <a href="{{ path('reservation') }}">Mes reservations</a>
+                    </li>
+
+                {% endif %}
+
+
+                {% if is_granted('ROLE_PATERNAIRE') %}
+                    <li><a href="{{ path('listannonce') }}">Mes Annonces </a></li>
+                    <li><a href="{{ path('addannonce') }}">Creer une annonce </a></li>
+                {% endif %}
+                <li><a href="{{ path('favoris') }}" >Mes favoris</a></li>
+
+                <li><a href="{{ path('app_logout') }}">Se déconnecter </a></li>
+
+
+            </ul>
+        </li>
+        {% else %}
+            <li><span><a href="{{ path('register_part') }}">Devenir notre Partenaires</a></span> </li>
+            {% if app.user %}
+            {% else %}
+                <li><span><a href="{{ path('app_login') }}" >Se connecter</a></span></li>
+
+            {% endif %}
+
+            {% endif %}
+    </ul>
+</nav>

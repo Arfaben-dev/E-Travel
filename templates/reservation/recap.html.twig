@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description"
+          content="Panagea - Premium site template for travel agencies, hotels and restaurant listing.">
+    <meta name="author" content="Ansonika">
+    <title>E-Travel</title>
+
+    <!-- Favicons-->
+    <link rel="shortcut icon" href="{{ asset('img/E-TRAVEL.png') }}" style="width: 500px; height: 500px"
+          type="image/x-icon">
+    <link rel="apple-touch-icon" type="image/x-icon" href="{{ asset('img/E-TRAVEL.png') }}">
+    <link rel="apple-touch-icon" type="image/x-icon" sizes="72x72" href="{{ asset('img/E-TRAVEL.png') }}">
+    <link rel="apple-touch-icon" type="image/x-icon" sizes="114x114" href="{{ asset('img/E-TRAVEL.png') }}">
+    <link rel="apple-touch-icon" type="image/x-icon" sizes="144x144" href="{{ asset('img/E-TRAVEL.png') }}">
+
+
+    <!-- GOOGLE WEB FONT -->
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap"
+          rel="stylesheet">
+
+    <!-- BASE CSS -->
+    <link href="{{ asset('css/bootstrap.min.css') }}" rel="stylesheet">
+    <link href="{{ asset('css/style.css') }}" rel="stylesheet">
+    <link href="{{ asset('css/vendors.css') }}" rel="stylesheet">
+
+    <!-- YOUR CUSTOM CSS -->
+    <link href="{{ asset('css/custom.css') }}" rel="stylesheet">
+
+</head>
+
+<body>
+
+<div id="page" class="theia-exception">
+
+    <header class="header menu_fixed" style="height: 15%;250px">
+        {% include('components/menus.html.twig') %}
+
+    </header>
+
+    <main>
+        <div class="hero_in cart_section">
+            <div class="wrapper">
+                <div class="container">
+                    <div class="bs-wizard clearfix">
+                        <div class="bs-wizard-step active ">
+                            <div class="text-center bs-wizard-stepnum">Panier</div>
+                            <div class="progress">
+                                <div class="progress-bar"></div>
+                            </div>
+                            <a href="#0" class="bs-wizard-dot"></a>
+                        </div>
+
+                        <div class="bs-wizard-step active">
+                            <div class="text-center bs-wizard-stepnum">Payement</div>
+                            <div class="progress">
+                                <div class="progress-bar"></div>
+                            </div>
+                            <a href="#0" class="bs-wizard-dot"></a>
+                        </div>
+
+                        <div class="bs-wizard-step disabled">
+                            <div class="text-center bs-wizard-stepnum">Terminé!</div>
+                            <div class="progress">
+                                <div class="progress-bar"></div>
+                            </div>
+                            <a href="#0" class="bs-wizard-dot"></a>
+                        </div>
+                    </div>
+                    <!-- End bs-wizard -->
+                </div>
+            </div>
+        </div>
+        <!--/hero_in-->
+
+        <div class="bg_color_1">
+            <div class="container margin_60_35">
+                <div class="row">
+                    <div class="col-lg-8">
+                        <div class="box_cart">
+                            <!--End step -->
+                            <div class="form_title">
+                                <h3>INFORMATIONS PASSAGERS</h3>
+
+                            </div>
+                            {% for places in place %}
+                                <div class="step" id="contact_form">
+                                    <div class="row">
+                                        <div class="col-sm-6">
+                                            <div class="form-group">
+                                                <label> <strong>Nom et Prénom</strong> </label>
+                                                <br>
+                                                <span>{{ places.nom }}</span>
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-6">
+                                            <div class="form-group">
+                                                <label> <strong>Email</strong></label>
+                                                <br>
+                                                <span> {{ places.email }}</span>
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-sm-6">
+                                            <div class="form-group">
+                                                <label> <strong>Numéro de Téléphone</strong></label>
+                                                <br>
+                                                <span>{{ places.phone }}</span>
+                                            </div>
+                                        </div>
+
+                                    </div>
+
+
+                                </div>
+                            {% endfor %}
+                            <hr>
+
+                            <h4>Mode de paiement</h4>
+                            <br>
+                            <div class="row">
+                                <div class="col-sm-6">
+                                    <a href="{{ path('paie_paypal', {'ref': reservation.ref}) }}"> <img src="{{ asset('img/paypal_bt.png') }}">
+                                    </a>
+                                    Or
+                                </div>
+
+                                <div class="col-sm-6" style="margin-left: -20%">
+                                    <a href="{{ path('paie_stripe', {'ref': reservation.ref}) }}"> <img src="{{ asset('img/stripe.jpeg') }}"
+                                             style="border-radius: 30px;height: 50%;width: 50% ">
+                                    </a>
+                                </div>
+
+                            </div>
+
+                            <hr>
+
+
+                        </div>
+                    </div>
+                    <!-- /col -->
+
+                    <aside class="col-lg-4" id="sidebar">
+                        <div class="box_detail">
+                            <div id="total_cart">
+                                Total <span class="float-end">{{ reservation.prix }} €</span>
+                            </div>
+
+                            <ul class="cart_details">
+                                <li>Date <span>{{ annonces.datestart|date('d-m-Y') }}</span></li>
+                                <li>Heure Départ <span>{{ annonces.hourstart|date(' H:i') }}</span></li>
+                                <li>Heure Arrivée <span>{{ annonces.hourend|date(' H:i') }}</span></li>
+                                <li>nombre de place <span> {{ reservation.nbreplace }} </span></li>
+                            </ul>
+
+                            <div class="text-center"><small>No money charged in this step</small></div>
+                        </div>
+
+                    </aside>
+
+                </div>
+                <!-- /row -->
+            </div>
+            <!-- /container -->
+        </div>
+        <!-- /bg_color_1 -->
+    </main>
+    <!--/main-->
+
+    <!--/main-->
+    {% include('components/footer.html.twig') %}
+
+</div>
+<!-- page -->
+
+
+<div id="toTop"></div><!-- Back to top button -->
+{% include('components/footer.html.twig') %}
+<!-- COMMON SCRIPTS -->
+<script src="{{ asset('js/common_scripts.js') }}"></script>
+<script src="{{ asset('js/main.js') }}"></script>
+
+
+</body>
+</html>

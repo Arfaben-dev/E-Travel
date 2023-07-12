@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description"
+          content="Panagea - Premium site template for travel agencies, hotels and restaurant listing.">
+    <meta name="author" content="Ansonika">
+    <title>E-Travel</title>
+    <!-- Favicons-->
+    <link rel="shortcut icon" href="{{ asset('img/E-TRAVEL.png') }}" type="image/x-icon">
+
+
+
+
+    <!-- GOOGLE WEB FONT -->
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap"
+          rel="stylesheet">
+
+    <!-- BASE CSS -->
+    <link href="{{ asset('css/bootstrap.min.css') }}" rel="stylesheet">
+    <link href="{{ asset('css/style.css') }}" rel="stylesheet">
+    <link href="{{ asset('css/vendors.css') }}" rel="stylesheet">
+
+    <!-- YOUR CUSTOM CSS -->
+    <link href="{{ asset('css/custom.css') }}" rel="stylesheet">
+
+
+    <style>
+        .fav:hover {
+            color: #fc5b62;
+        }
+
+        .fav {
+            position: absolute;
+            right: 15px;
+            top: 15px;
+            z-index: 1;
+            color: #fc5b62;
+
+            padding: 9px 10px;
+            display: inline-block;
+            line-height: 1;
+            -webkit-border-radius: 3px;
+            -moz-border-radius: 3px;
+            -ms-border-radius: 3px;
+            border-radius: 3px;
+
+        }
+    </style>
+</head>
+
+<body>
+
+<div id="page">
+
+    <header class="header menu_fixed">
+        {% include('components/menus.html.twig') %}
+
+    </header>
+    <!-- /header -->
+
+    <main >
+
+        <section class="hero_in hotels" style=" background: url(../img/photos/Annonces.png) center center no-repeat;
+">
+            <div class="wrapper">
+                <div class="container">
+                    <h1 class="fadeInUp"><span></span>Annonces</h1>
+                </div>
+            </div>
+        </section>
+
+
+
+        <div class="collapse" id="collapseMap">
+            <div id="map" class="map"></div>
+        </div>
+        <!-- End Map -->
+
+        <div class="container margin_60_35">
+            <div class="row">
+                <aside class="col-lg-3">
+                    <div class="custom-search-input-2 inner-2">
+
+
+                    </div>
+                    <!-- /custom-search-input-2 -->
+                    <div id="filters_col">
+                        <a data-bs-toggle="collapse" href="#collapseFilters" aria-expanded="false"
+                           aria-controls="collapseFilters" id="filters_col_bt">Filters </a>
+                        <br>
+                        {{ form_start(form) }}
+
+                        {{ form_row(form.q) }}
+                        <div class="row">
+                            <div class="col-md-6">
+                                {{ form_row(form.citystart) }}
+                            </div>
+
+                            <div class="col-md-6">
+                                {{ form_row(form.cityend) }}
+
+                            </div>
+                        </div>
+                        {{ form_row(form.datestart) }}
+                        <div class="row">
+                            <div class="col-md-6">
+                                {{ form_row(form.transport) }}
+                            </div>
+
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-6">
+                                {{ form_row(form.min) }}
+                            </div>
+
+                            <div class="col-md-6">
+                                {{ form_row(form.max) }}
+
+                            </div>
+                        </div>
+
+
+                        <div id="price-slider" data-min="{{ min }}" data-max="{{ max }}"></div>
+
+
+                        <br>
+                        <button type="submit" class="btn"
+                                style="background-color: #fc5b62; color: white; margin-left: 30%"> Search
+                        </button>
+
+                        {{ form_end(form) }}
+
+
+                    </div>
+                    <!--/filters col-->
+                </aside>
+                <!-- /aside -->
+                <div class="col-lg-9" >
+                    <div class="isotope-wrapper">
+                        <div class="row">
+                            {% if pagination|length ==0 %}
+
+                                <div class="text-center"><img src="{{ asset('img/photos/AucunResultat.png') }}"></div>
+
+                            {% endif %}
+                            {% for annonce in pagination %}
+
+
+                                <div class="col-md-6 isotope-item popular">
+                                    <div class="box_grid">
+                                        <figure>
+
+                                            {% for image in annonce.images %}
+                                                <a href="{{ path('detailannonce', {'id': annonce.id}) }}"><img
+                                                            src="{{ asset('upload/images/'~image) }}"
+                                                            class="img-fluid" alt="" width="800" height="533">
+                                                    <div class="read_more"><span>Voir plus</span></div>
+                                                </a>
+                                            {% endfor %}
+                                            <small>{{ annonce.citystart }}->{{ annonce.cityend }}</small>
+                                        </figure>
+                                        <div class="wrapper">
+
+
+                                            <div class="h6 text-center">{{ annonce.datestart|date('d-m-Y') }}</div>
+                                            <div class="d-flex justify-content-between">
+                                                <div class="p-2 h6">{{ annonce.hourstart|date(' H:i') }}</div>
+                                                <div class="p-2 h6"
+                                                     style="color: #fc5b62;">{{ annonce.citystart }}</div>
+                                            </div>
+                                            <div class="d-flex justify-content-between">
+                                                <div class="p-2 h6">{{ annonce.hourend|date(' H:i') }}</div>
+                                                <div class="p-2 h6" style="color: #fc5b62;">{{ annonce.cityend }}</div>
+                                            </div>
+                                            <br>
+                                            <span class="price" style="margin-left: 45%; font-size: 18px    "> <strong>{{ annonce.prix }}€</strong></span>
+                                            <br>
+
+
+                                            <span style="margin-left: 25%; font-size: 15px"> <strong>{{ annonce.placedispo - annonce.placeprise }} places disponibles </strong></span>
+
+                                            {% if app.user %}
+
+                                                <a href="{{ path('like', {'id': annonce.id} ) }}" class="fav like"
+                                                   title="favoris">
+                                                    {% if app.user in annonce.likes %}
+
+                                                        <i class="icon-bookmark"></i>
+
+                                                    {% else %}
+
+                                                        <i class=" icon-bookmark-empty"></i>
+
+                                                    {% endif %}
+
+
+                                                    <span class="js-likes">{{ annonce.likes|length }}</span>
+                                                </a>
+
+
+
+                                            {% else %}
+                                                <a href="{{ path('app_login') }}" class="fav">
+                                                    <i class=" icon-bookmark-empty"></i>
+
+
+                                                </a>
+                                            {% endif %}
+
+
+                                        </div>
+                                        <ul>
+                                            <li></li>
+                                            <li>
+                                                <div class="score">
+                                                    <div class="score">{{ annonce.commentaires|length}} avis </em></span><strong>8.9</strong></div>
+                                            </li>
+                                        </ul>
+                                    </div>
+
+                                </div>
+
+                            {% endfor %}
+
+                            <!-- /box_grid -->
+                        </div>
+                        <!-- /row -->
+                    </div>
+                    <!-- /isotope-wrapper -->
+
+                    <p class="text-center">{{ knp_pagination_render(pagination,'annonce/base.html.twig') }}</p>
+
+                </div>
+                <!-- /col -->
+            </div>
+        </div>
+        <!-- /container -->
+
+
+    </main>
+    <!--/main-->
+
+    {% include('components/footer.html.twig') %}
+</div>
+<!-- page -->
+
+
+<div id="toTop"></div><!-- Back to top button -->
+
+{% include('components/script.html.twig') %}
+
+
+</body>
+</html>

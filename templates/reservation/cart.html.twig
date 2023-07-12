@@ -1,0 +1,270 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description"
+          content="Panagea - Premium site template for travel agencies, hotels and restaurant listing.">
+    <meta name="author" content="Ansonika">
+    <title>E-Travel</title>
+
+    <!-- Favicons-->
+    <link rel="shortcut icon" href="{{ asset('img/E-TRAVEL.png') }}" style="width: 500px; height: 500px"
+          type="image/x-icon">
+    <link rel="apple-touch-icon" type="image/x-icon" href="{{ asset('img/E-TRAVEL.png') }}">
+    <link rel="apple-touch-icon" type="image/x-icon" sizes="72x72" href="{{ asset('img/E-TRAVEL.png') }}">
+    <link rel="apple-touch-icon" type="image/x-icon" sizes="114x114" href="{{ asset('img/E-TRAVEL.png') }}">
+    <link rel="apple-touch-icon" type="image/x-icon" sizes="144x144" href="{{ asset('img/E-TRAVEL.png') }}">
+
+
+    <!-- GOOGLE WEB FONT -->
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap"
+          rel="stylesheet">
+
+    <!-- BASE CSS -->
+    <link href="{{ asset('css/bootstrap.min.css') }}" rel="stylesheet">
+    <link href="{{ asset('css/style.css') }}" rel="stylesheet">
+    <link href="{{ asset('css/vendors.css') }}" rel="stylesheet">
+
+    <!-- YOUR CUSTOM CSS -->
+    <link href="{{ asset('css/custom.css') }}" rel="stylesheet">
+
+</head>
+
+<body>
+
+<div id="page" class="theia-exception">
+
+    <header class="header menu_fixed" style="height: 15%;250px">
+        {% include('components/menus.html.twig') %}
+
+    </header>
+
+    <main>
+        <div class="hero_in cart_section">
+            <div class="wrapper">
+                <div class="container">
+                    <div class="bs-wizard clearfix">
+                        <div class="bs-wizard-step active">
+                            <div class="text-center bs-wizard-stepnum">Panier</div>
+                            <div class="progress">
+                                <div class="progress-bar"></div>
+                            </div>
+                            <a href="#0" class="bs-wizard-dot"></a>
+                        </div>
+
+                        <div class="bs-wizard-step disabled">
+                            <div class="text-center bs-wizard-stepnum">Payement</div>
+                            <div class="progress">
+                                <div class="progress-bar"></div>
+                            </div>
+                            <a href="#0" class="bs-wizard-dot"></a>
+                        </div>
+
+                        <div class="bs-wizard-step disabled">
+                            <div class="text-center bs-wizard-stepnum">Terminé!</div>
+                            <div class="progress">
+                                <div class="progress-bar"></div>
+                            </div>
+                            <a href="#0" class="bs-wizard-dot"></a>
+                        </div>
+                    </div>
+                    <!-- End bs-wizard -->
+                </div>
+            </div>
+        </div>
+        <!--/hero_in-->
+
+        <div class="bg_color_1">
+            <div class="container margin_60_35">
+                <div class="row">
+                    <div class="col-lg-8">
+                        <div class="box_cart">
+                            <table class="table cart-list">
+                                <thead>
+                                <tr>
+                                    <th>
+                                        Ville départ
+                                    </th>
+                                    <th>
+                                        Ville arrivée
+                                    </th>
+                                    <th>
+                                        Prix
+                                    </th>
+                                    <th>
+                                        nombre de places
+                                    </th>
+                                    <th>
+                                        Actions
+                                    </th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <tr>
+                                    <td>
+                                        {{ annonces.cityStart }}
+                                    </td>
+                                    <td>
+                                        {{ annonces.cityEnd }}
+                                    </td>
+                                    <td>
+                                        <span id="price"
+                                              data-price-id=" {{ annonces.prix }}"> {{ annonces.prix }}</span> €
+
+                                    </td>
+                                    <td>
+                                        <input type="number" id="quantity" min="1" value="1"
+                                               style="width: 52px" data-product-id="{{ annonces.id }}"
+                                               onchange="updateTotalPrice(this)"/>
+
+                                    </td>
+                                    <td class="options" style="width:5%; text-align:center;">
+                                        <a href="#"><i class="icon-trash"></i></a>
+                                    </td>
+                                </tr>
+
+                                </tbody>
+                            </table>
+
+                        </div>
+                    </div>
+                    <!-- /col -->
+
+                    <aside class="col-lg-4" id="sidebar">
+                        <div class="box_detail">
+                            <div id="total_cart">
+                                Total <span id="total" class="float-end"> </span>
+                            </div>
+                            <ul class="cart_details">
+                                <li>Date <span>{{ annonces.datestart|date('d-m-Y') }}</span></li>
+                                <li>Heure Départ <span>{{ annonces.hourstart|date(' H:i') }}</span></li>
+                                <li>Heure Arrivée <span>{{ annonces.hourend|date(' H:i') }}</span></li>
+                                <li>nombre de place <span id="place"></span></li>
+                            </ul>
+
+                            <button class="btn btn-outline-success" style="margin-left: 42%" onclick="passData()">Suivant</button>
+                        </div>
+                    </aside>
+                </div>
+                <!-- /row -->
+            </div>
+            <!-- /container -->
+        </div>
+        <!-- /bg_color_1 -->
+    </main>
+
+    <!--/main-->
+
+
+</div>
+<!-- page -->
+
+
+
+<div id="toTop"></div><!-- Back to top button -->
+{% include('components/footer.html.twig') %}
+<!-- COMMON SCRIPTS -->
+<script src="{{ asset('js/common_scripts.js') }}"></script>
+<script src="{{ asset('js/main.js') }}"></script>
+<script src="https://code.jquery.com/jquery-3.7.0.min.js"></script>
+
+<script>
+
+    function updateTotalPrice(input) {
+        var quantity = parseInt(input.value);
+        var productId = input.getAttribute("data-product-id");
+        var priceId = input.getAttribute("data-price-id");
+        var price = parseInt($("#" + priceId).text());
+
+        console.log(quantity)
+
+        // Première page
+        $.ajax({
+            url: "{{ path('calculate') }}",
+            method: "POST",
+            data: {quantity: quantity, productId: productId},
+            success: function (response) {
+                $("#" + priceId).text(price * quantity);
+                $("#total").text(response.totalPrice + '€');
+                $("#place").text(response.place);
+            }
+        });
+    }
+
+    var qt = document.getElementById("quantity").value;
+    var to = qt *{{ annonces.prix }};
+    $("#total").text(to + "€");
+    $("#place").text(qt);
+
+</script>
+
+<script>
+
+    function passData() {
+        var qt = document.getElementById("quantity").value;
+
+        console.log(qt)
+
+
+        var to = qt *{{ annonces.prix }};
+        var data = {quantity: qt, total: to};
+        localStorage.setItem("data", JSON.stringify(data));
+
+
+        window.location.href = "{{ path('paie', {'id': annonces.id} )}}";
+
+    }
+</script>
+
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

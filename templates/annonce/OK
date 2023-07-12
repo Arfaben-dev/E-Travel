@@ -1,0 +1,275 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description"
+          content="Panagea - Premium site template for travel agencies, hotels and restaurant listing.">
+    <meta name="author" content="Ansonika">
+    <title>E-Travel</title>
+
+    <!-- Favicons-->
+    <link rel="shortcut icon" href="{{ asset('img/E-TRAVEL.png') }}" style="width: 500px; height: 500px"
+          type="image/x-icon">
+    <link rel="apple-touch-icon" type="image/x-icon" href="{{ asset('img/E-TRAVEL.png') }}">
+    <link rel="apple-touch-icon" type="image/x-icon" sizes="72x72" href="{{ asset('img/E-TRAVEL.png') }}">
+    <link rel="apple-touch-icon" type="image/x-icon" sizes="114x114" href="{{ asset('img/E-TRAVEL.png') }}">
+    <link rel="apple-touch-icon" type="image/x-icon" sizes="144x144" href="{{ asset('img/E-TRAVEL.png') }}">
+
+
+    <!-- GOOGLE WEB FONT -->
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap"
+          rel="stylesheet">
+
+    <!-- BASE CSS -->
+    <link href="{{ asset('css/bootstrap.min.css') }}" rel="stylesheet">
+    <link href="{{ asset('css/style.css') }}" rel="stylesheet">
+    <link href="{{ asset('css/vendors.css') }}" rel="stylesheet">
+
+    <!-- YOUR CUSTOM CSS -->
+    <link href="{{ asset('css/custom.css') }}" rel="stylesheet">
+
+</head>
+
+<body>
+
+<div id="page" class="theia-exception">
+
+    <header class="header menu_fixed" style="height: 15%;250px">
+        {% include('components/menus.html.twig') %}
+
+    </header>
+
+    <main>
+        <div class="hero_in cart_section">
+            <div class="wrapper">
+                <div class="container">
+                    <div class="bs-wizard clearfix">
+                        <div class="bs-wizard-step active ">
+                            <div class="text-center bs-wizard-stepnum">Panier</div>
+                            <div class="progress">
+                                <div class="progress-bar"></div>
+                            </div>
+                            <a href="#0" class="bs-wizard-dot"></a>
+                        </div>
+
+                        <div class="bs-wizard-step active">
+                            <div class="text-center bs-wizard-stepnum">Payement</div>
+                            <div class="progress">
+                                <div class="progress-bar"></div>
+                            </div>
+                            <a href="#0" class="bs-wizard-dot"></a>
+                        </div>
+
+                        <div class="bs-wizard-step disabled">
+                            <div class="text-center bs-wizard-stepnum">Terminé!</div>
+                            <div class="progress">
+                                <div class="progress-bar"></div>
+                            </div>
+                            <a href="#0" class="bs-wizard-dot"></a>
+                        </div>
+                    </div>
+                    <!-- End bs-wizard -->
+                </div>
+            </div>
+        </div>
+        <!--/hero_in-->
+
+        <div class="bg_color_1">
+            <div class="container margin_60_35">
+                <div class="row">
+                    <div class="col-lg-8">
+                        <div class="box_cart">
+                            <!--End step -->
+                            <div class="form_title">
+                                <h3>Informatons  Clients</h3>
+                                <p>
+                                    Veuillez remplir tous les champs
+                                </p>
+                            </div>
+
+                            <div class="step" id="contact_form">
+                                {{ form_start(form, {'attr': {'novalidate': 'novalidate'}}) }}
+                                <div class="row">
+                                    <div class="col-sm-6">
+                                        <div class="form-group" id="departements"
+                                             data-prototype="{{ form_row(form.places.vars.prototype)|e('html_attr') }}">
+                                            {{ form_row(form.places) }}
+                                            <span></span>
+                                        </div>
+                                    </div>
+
+                                </div>
+                                <br>
+                                <button class="btn_1 full-width purchase">Passer au payement</button>
+
+                                {{ form_end(form) }}
+                            </div>
+
+
+                            <!-- <div id="formContainer"></div>
+                         -   <a type="button" class="btn_1 outline" id="duplicateButton">Update Cart</a>
+
+                             <hr>
+                            End step -->
+
+
+                        </div>
+                    </div>
+                    <!-- /col -->
+
+                    <aside class="col-lg-4" id="sidebar">
+                        <div class="box_detail">
+                            <div id="total_cart">
+                                Total <span class="float-end" id="total"></span>
+                            </div>
+                            <ul class="cart_details">
+                                <li>Date <span>{{ annonces.datestart|date('d-m-Y') }}</span></li>
+                                <li>Heure Départ <span>{{ annonces.hourstart|date(' H:i') }}</span></li>
+                                <li>Heure Arrivée <span>{{ annonces.hourend|date(' H:i') }}</span></li>
+                                <li>nombre de place <span id="place"></span></li>
+                            </ul>
+
+                            <div class="text-center"><small>No money charged in this step</small></div>
+                        </div>
+
+                    </aside>
+
+                </div>
+                <!-- /row -->
+            </div>
+            <!-- /container -->
+        </div>
+        <!-- /bg_color_1 -->
+    </main>
+    <!--/main-->
+
+    <!--/main-->
+    {% include('components/footer.html.twig') %}
+
+</div>
+<!-- page -->
+
+
+<div id="toTop"></div><!-- Back to top button -->
+{% include('components/footer.html.twig') %}
+<!-- COMMON SCRIPTS -->
+<script src="{{ asset('js/common_scripts.js') }}"></script>
+<script src="{{ asset('js/main.js') }}"></script>
+<script src="https://code.jquery.com/jquery-3.7.0.min.js"></script>
+
+<script type="text/javascript">
+    // Deuxième page
+    var data = JSON.parse(localStorage.getItem("data"));
+
+    console.log({{ ok  }})
+
+    $("#total").text(data.total + "€");
+    $("#place").text(data.quantity);
+
+
+    let collection, boutonAjout, span;
+    window.onload = () => {
+        collection = document.querySelector("#departements");
+        span = collection.querySelector("span");
+
+        boutonAjout = document.createElement("a");
+        boutonAjout.className = "ajout-departement btn_1 outline";
+        boutonAjout.innerText = "Ajouter une place";
+
+        let nouveauBouton = span.append(boutonAjout);
+
+        collection.dataset.index = collection.querySelectorAll("input").length;
+
+        boutonAjout.addEventListener("click", function () {
+            addButton(collection, nouveauBouton);
+        });
+    }
+    var duplicationCount = 0;
+
+    function addButton(collection, nouveauBouton) {
+        duplicationCount++;
+        let prototype = collection.dataset.prototype;
+
+        let index = collection.dataset.index;
+
+        prototype = prototype.replace(/__name__/g, index);
+
+        let content = document.createElement("html");
+
+        if (data.quantity >= duplicationCount) {
+            content.innerHTML = prototype;
+        }
+
+
+        let newForm = content.querySelector("div");
+
+
+        collection.dataset.index++;
+
+        let boutonAjout = collection.querySelector(".ajout-departement");
+
+        span.insertBefore(newForm, boutonAjout);
+
+        boutonSuppr.addEventListener("click", function () {
+            this.previousElementSibling.parentElement.remove();
+        })
+    }
+
+
+    /*  var duplicationCount = 0;
+       document.getElementById("duplicateButton").addEventListener("click", function () {
+           duplicationCount++;
+           var formContainer = document.getElementById("formContainer");
+           var formCount = document.getElementsByClassName("contact-form").length;
+
+           // Clonez le formulaire en utilisant le numéro de formulaire comme suffixe unique
+           var clonedForm = document.getElementById("contact_form").cloneNode(true);
+           clonedForm.id = "contact_form_" + formCount;
+           clonedForm.classList.add("contact-form");
+
+           // Effacez les valeurs des champs dupliqués
+           var inputFields = clonedForm.getElementsByTagName("input");
+           for (var i = 0; i < inputFields.length; i++) {
+               inputFields[i].value = "";
+           }
+           // Ajoutez le formulaire dupliqué à la page
+           if (data.quantity - 1 >= duplicationCount) {
+               formContainer.appendChild(clonedForm);
+           }
+
+
+       });   */
+
+</script>
+
+
+</body>
+</html>
+
+
+
+
+
+            /*    $reservation->setPrix(22);
+                $reservation->setRef(4657);
+                $reservation->setUserreservation($this->getUser());
+                $em->persist($reservation);
+                $em->flush();
+                $clients = ($request->get('reservation'))? $request->get('reservation')['clientreservation'] : null;
+                foreach ($clients as $client)
+                {
+                    $c = new Client();
+                    $c->setNom($client['nom']);
+                    $c->setPhone($client['phone']);
+                    $c->setEmail($client['email']);
+                    $c->setAdresse($client['adresse']);
+                    $c->addReservation($reservation);
+                    $em->persist($c);
+                    $em->flush();
+
+                }
+
+*/

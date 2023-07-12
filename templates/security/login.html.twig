@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description"
+          content="Panagea - Premium site template for travel agencies, hotels and restaurant listing.">
+    <meta name="author" content="Ansonika">
+    <title>E-Travel</title>
+    <!-- Favicons-->
+    <link rel="shortcut icon" href="{{ asset('img/E-TRAVEL.png') }}" type="image/x-icon">
+
+
+    <!-- GOOGLE WEB FONT -->
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap"
+          rel="stylesheet">
+
+    <!-- BASE CSS -->
+    <link href="{{ asset('css/bootstrap.min.css') }}" rel="stylesheet">
+    <link href="{{ asset('css/style.css') }}" rel="stylesheet">
+    <link href="{{ asset('css/vendors.css') }}" rel="stylesheet">
+
+
+
+
+</head>
+
+<body>
+
+<div id="page">
+
+    <header class="header menu_fixed">
+        {% include('components/menus.html.twig') %}
+
+    </header>
+    <!-- /header -->
+
+    <main>
+
+        <section class="hero_in hotels" style=" background: url(../img/photos/inscription.png) center center no-repeat;
+; height: 250px">
+
+            <div class="wrapper">
+                <div class="container">
+                    <h1 class="fadeInUp"><span></span>Connexion</h1>
+                </div>
+            </div>
+        </section>
+        <br>
+
+        <div class="container mt-4 mb-4">
+
+            <form method="post" class="signin-form" name="login">
+                <input type="hidden" name="_csrf_token"
+                       value="{{ csrf_token('authenticate') }}"
+                >
+
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-group" style="color: black">
+                            <label>E-mail</label>
+                            <input type="email" value="{{ last_username }}" name="email" id="inputEmail"
+                                   class="form-control" autocomplete="email" required autofocus>
+                        </div>
+                    </div>
+                    <div class="col-md-6" style="color: black">
+                        <label>Mot de passe</label>
+
+                        <div class="form-group" style="color: black">
+                            <input type="password" name="password" id="inputPassword" class="form-control"
+                                   autocomplete="current-password" required>
+                            <span toggle="#password-field" class="fa fa-fw fa-eye field-icon toggle-password"></span>
+                        </div>
+                    </div>
+                </div>
+                <div class="row ww-1">
+                    <div class="col-md-6">
+                        <div class="form-group" style="color: black">
+                            <label class="checkbox-wrap checkbox-primary">
+                                <input type="checkbox" name="_remember_me">
+                                <span class="checkmark"></span>Resté connecter
+                            </label>
+                        </div>
+                    </div>
+
+
+
+                </div>
+<br>
+
+                <button type="submit" class="btn btn-outline-success" style="margin-left: 45%"> Se conecter</button>
+
+            </form>
+
+            <div class=" text-center " style="margin-top: 1%"> Vous n'avez pas de compte ? <a
+                        href="{{ path('app_register') }}" style="color:  #fc5b62"> S'inscrire</a></div>
+
+            <p class="w-100 text-center "  style="margin-top: 1%">&mdash; Se connecter avec &mdash;</p>
+
+        </div>
+        <div class="social d-flex text-center ww-3" style="margin-left: 46%">
+            <a href="{{ path('connect_google_start') }}" class="btn btn-outline-danger"><span
+                        class="ion-logo-twitter mr-2"></span> Google</a>
+        </div>
+        <br>
+        {% include('components/footer.html.twig') %}
+    </main>
+    <!--/main-->
+
+</div>
+<!-- page -->
+
+
+<div id="toTop"></div><!-- Back to top button -->
+
+<!-- COMMON SCRIPTS -->
+<script src="{{ asset('js/common_scripts.js') }}"></script>
+<script src="{{ asset('js/main.js') }}"></script>
+<script src="{{ asset('phpmailer/validate.js') }}"></script>
+
+
+</body>
+</html>
+
